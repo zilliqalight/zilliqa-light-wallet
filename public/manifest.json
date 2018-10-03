@@ -1,0 +1,29 @@
+{
+  "manifest_version": 2,
+
+  "name": "Zilliqa Light Wallet",
+  "description": "Zilliqa Chrome Extension Wallet",
+  "version": "0.1.0",
+
+  "browser_action": {
+    "default_popup": "index.html",
+    "default_title": "Zilliqa Light Wallet"
+  },
+  "icons": {
+    "16": "logo.png",
+    "48": "logo.png",
+    "128": "logo.png"
+  },
+  "background": {
+    "page": "integration/background/index.html",
+    "persistent": true
+  },
+  "permissions": [
+    "storage",
+    "unlimitedStorage",
+    "clipboardWrite",
+    "activeTab",
+    "tabs",
+    "background"
+  ]
+}

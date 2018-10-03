@@ -1,0 +1,215 @@
+.App {
+  text-align: center;
+  min-width: 480px;
+  flex-grow: 1;
+  background-color: #fafafa;
+  font-family: Poppins, sans-serif;
+}
+
+.app-logo {
+  height: 20px;
+  margin: 0 16px;
+}
+
+.identicon {
+  width: 25px;
+  height: 25px;
+}
+
+.issue-token-title {
+  margin: 20px;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+
+.card {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.space {
+  margin-top: 20px;
+}
+
+.token-logo {
+  margin-top: 20px;
+  height: 60px;
+}
+
+.align-right {
+  float: right;
+}
+
+.token-logo-lg {
+  margin-top: 20px;
+  height: 100px;
+}
+
+.sign-in-button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.reset-button {
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.confirmation-container {
+  padding: 10px 30px;
+}
+
+.confirmation-field {
+  width: 100%;
+}
+
+.confirmation-button {
+  width: 100%;
+  margin: 20px 0 0 !important;
+}
+
+.balance {
+  margin-top: 20px;
+  font-size: 22px;
+  font-weight: 400;
+}
+
+.price {
+  margin-top: 5px;
+  font-size: 14px;
+  color: darkgray;
+}
+
+.address {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: darkgray;
+}
+
+.key {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 10px;
+  color: darkgray;
+  /* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+}
+
+.account-details-card,
+.send-card {
+  margin-top: 20px;
+  padding-top: 20px;
+}
+
+.transactions-card {
+  margin: 20px 0;
+  padding: 20px 0;
+}
+
+.send-card {
+  padding-bottom: 40px;
+}
+
+.account-details-address {
+  padding-left: 20px;
+}
+
+.buttons-container {
+  padding: 0 20px;
+}
+
+.buttons-container button {
+  width: 100%;
+  height: 60px;
+  margin-top: 20px;
+}
+
+.account-details-button-icon,
+.receive-button-icon,
+.send-button-icon {
+  margin-left: 10px;
+}
+
+.hide {
+  display: none;
+}
+
+.send-card .send-to,
+.send-card .send-token,
+.send-card .send-amount,
+#send-token-button,
+.sign-in-card .private-key-field,
+.sign-in-button {
+  width: 80%;
+}
+
+#send-token-button {
+  margin: 20px 0 40px;
+}
+
+.token-power-description {
+  font-size: 14px;
+  padding: 0 20px;
+  text-align: justify;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red
+}
+
+.transactions-table .transactions-time-hash,
+.transactions-table .transactions-addresses,
+.transactions-table .transactions-amount,
+.transactions-table .transactions-token {
+  padding: 0 0 0 10px;
+  color: darkgray;
+}
+
+.sign-in-card {
+  width: 440px;
+  margin: 20px 20px 0 20px;
+}
+
+.tool-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.private-key {
+  word-wrap: break-word;
+}
+
+.account-details-address {
+  margin-bottom: 20px;
+}
+
+.view-transactions-on-button {
+  margin-top: 10px;
+}
