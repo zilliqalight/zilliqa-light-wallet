@@ -1,7 +1,7 @@
 # Zilliqa Light Wallet
 
 
-![Zilliqa Light Wallet](https://github.com/appbery/zilliqa-light-wallet/blob/master/assets/dashboard.png?v=1 "Zilliqa Light Wallet")
+![Zilliqa Light Wallet](https://github.com/zilliqalight/zilliqa-light-wallet/blob/master/assets/dashboard.png?v=1 "Zilliqa Light Wallet")
 
 
 
@@ -21,7 +21,6 @@ This project is currently in development and it is under [Zilliqa ecosystem gran
 | Display acocunt balance | done      |
 | Send fund | done      |
 | Receive fund address/QRcode | done      |
-| Smart contract interaction | in progress      |
 
 Mainnet support will be available once it is released.
 
@@ -32,7 +31,7 @@ Prerequisite: yarn, git, node
 
 1. Git clone to local folder
 
-```git clone https://github.com/appbery/zilliqa-light-wallet```
+```git clone https://github.com/zilliqalight/zilliqa-light-wallet```
 
 2. Add dependencies and build the source
 
@@ -45,7 +44,7 @@ Open chrome, go to `chrome://extensions/`
 Turn on developer mode
 Click "Load unpacked"
 
-![Build from source](https://github.com/appbery/zilliqa-light-wallet/blob/master/assets/chromeextension.png "Chrom Extension")
+![Build from source](https://github.com/zilliqalight/zilliqa-light-wallet/blob/master/assets/chromeextension.png "Chrom Extension")
 
 Locate ```zilliqa-light-wallet/build``` folder, click select
 You should see plugin added to Chrome plugin bar,click to start to use it.
