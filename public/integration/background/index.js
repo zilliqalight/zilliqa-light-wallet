@@ -1,14 +1,5 @@
 let passwordHash = null; // passwordHash will be passed by popup
 let activeAccount = null; // activeAccount will be passed by popup
-let activePrivateKey = null; // activePrivateKey will be passed by popup
-
-const getPrivateKey = () => {
-  return activePrivateKey;
-};
-
-const getActiveAccount = () => {
-  return activeAccount;
-};
 
 // get password hash and return to popup
 window.getPasswordHash = () => {
@@ -30,15 +21,4 @@ window.getActiveAccount = () => {
 window.setActiveAccount = (data) => {
   activeAccount = data;
   return activeAccount;
-};
-
-// get
-window.getActivePrivateKey = () => {
-  return activePrivateKey;
-};
-
-// set
-window.setActivePrivateKey = (data) => {
-  activePrivateKey = data;
-  return activePrivateKey;
 };

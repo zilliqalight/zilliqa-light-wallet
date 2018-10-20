@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   min-width: 480px;
+  min-height: 600px;
   flex-grow: 1;
   background-color: #fafafa;
   font-family: Poppins, sans-serif;
@@ -97,19 +98,10 @@
 }
 
 .key {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  margin-left: 10px;
-  margin-right: 10px;
-  font-size: 10px;
-  color: darkgray;
-  /* These are technically the same, but use both */
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-
-  /* Instead use this non-standard one: */
-  word-break: break-word;
-
+  margin: 20px;
+  font-size: 18px;
+  color: #6e6e6e;
+  word-break:break-all;
 }
 
 .account-details-card,
@@ -195,6 +187,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .logo-container {
@@ -212,4 +205,9 @@
 
 .view-transactions-on-button {
   margin-top: 10px;
+}
+
+.qr-code {
+  width: 70%;
+  max-width: 320px;
 }

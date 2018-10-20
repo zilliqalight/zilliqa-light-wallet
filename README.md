@@ -12,15 +12,16 @@ This project is currently in development and it is under [Zilliqa ecosystem gran
 | Feature        | Status           |
 | ------------- |:-------------:|
 | Create and reset local wallet      | done |
-| Create acount      | done      |
+| Create account      | done      |
 | Display mnemonic | done      |
 | Sign out | done      |
 | Import account by private key | done      |
 | Import account by mnemonic | done      |
 | Multiple account switching | done      |
-| Display acocunt balance | done      |
+| Display account balance | done      |
 | Send fund | done      |
 | Receive fund address/QRcode | done      |
+| Smart contract interaction | in progress      |
 
 Mainnet support will be available once it is released.
 
