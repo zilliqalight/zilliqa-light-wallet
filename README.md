@@ -6,17 +6,17 @@
 
 Currently it uses below TESTNET details.
 
-iqznc-api: 
+scilla-test-api: 
 
-https://iqznc-api.aws.z7a.xyz
+https://scilla-test-api.aws.z7a.xyz
 
-iqznc-explorer: 
+scilla-test-explorer: 
 
-https://iqznc-explorer.aws.z7a.xyz
+https://scilla-test-explorer.aws.z7a.xyz
+
 
 iqznc-scilla-wallet: 
 
-https://iqznc-scilla-wallet.aws.z7a.xyz
 
 
 ## Introduction
