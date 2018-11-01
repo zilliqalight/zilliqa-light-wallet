@@ -21,7 +21,7 @@ import Price from './Price';
 import { hideAccounts, showAccounts } from '../actions/dashboard';
 import { hideSnackbar, showSnackbar } from '../actions/snackbar';
 import { showWalletKeys } from '../actions/wallet';
-import { setActiveAccountDetails, setAccountInfo } from '../actions/account';
+import { setActiveAccountDetails } from '../actions/account';
 
 import logoZIL from '../images/logo_zil.svg';
 
@@ -68,17 +68,6 @@ class Dashboard extends React.Component {
       });
     }
   };
-
-  // reloadActiveAccount = () => {
-  //   this.props.store.dispatch({
-  //     type: 'LOAD_ACTIVE_ACCOUNT',
-  //   });
-  // };
-
-  // handleAccountsOpen = event => {
-  //   this.setState({ accountsOpen: true });
-  //   this.setState({ anchorEl: event.currentTarget });
-  // };
 
   render() {
     const { activeAccountDetails } = this.props;
@@ -163,7 +152,6 @@ const mapDispatchToProps = {
   hideAccounts,
   setActiveAccountDetails,
   showWalletKeys,
-  setAccountInfo,
 };
 
 export default connect(

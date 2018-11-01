@@ -46,7 +46,11 @@ class App extends Component {
     setPasswordHash(passwordHashInBackground, passwordHashInStorage);
 
     const accounts = await localStorage.getAccounts();
-    const activeAccount = await backgroundPage.getActiveAccount();
+    let activeAccount = await backgroundPage.getActiveAccount();
+    if (!activeAccount && accounts && accounts.length > 0) {
+      activeAccount = accounts[0];
+      await backgroundPage.setActiveAccount(activeAccount);
+    }
     setAccountInfo(accounts, activeAccount);
 
     if (!!passwordHashInBackground) {
