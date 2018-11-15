@@ -56,16 +56,18 @@ class Dashboard extends React.Component {
     if (activeAccount && activeAccount.address) {
       showSnackbar('Loading account details...');
       const zilliqa = createZilliqa(network);
-      const node = zilliqa.getNode();
-      node.getBalance({ address: activeAccount.address }, (error, data) => {
-        if (error || data.error) {
-          console.error(error);
+      try {
+        const data = await zilliqa.blockchain.getBalance(activeAccount.address);
+        if (data.error) {
+          console.error(data.error);
         } else {
           const activeAccountDetails = data.result;
           setActiveAccountDetails(activeAccountDetails);
           hideSnackbar();
         }
-      });
+      } catch (e) {
+        console.error(e);
+      }
     }
   };
 

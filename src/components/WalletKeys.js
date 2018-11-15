@@ -13,8 +13,9 @@ import CloseIcon from '@material-ui/icons/Close';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
+import { getPubKeyFromPrivateKey } from '@zilliqa-js/crypto';
+
 import { getActivePrivateKey } from '../utils/crypto';
-import { createZilliqa } from '../utils/networks';
 
 import Transition from './Transition';
 
@@ -32,12 +33,10 @@ class WalletKeys extends React.Component {
   }
 
   getKeys = async () => {
-    const { activeAccount, network } = this.props;
+    const { activeAccount } = this.props;
     const { encryptedPrivateKey } = activeAccount;
     const privateKey = await getActivePrivateKey(encryptedPrivateKey);
-    const zilliqa = createZilliqa(network);
-    const publicKey = zilliqa.util
-      .getPubKeyFromPrivateKey(privateKey)
+    const publicKey = getPubKeyFromPrivateKey(privateKey)
       .toUpperCase();
 
     this.setState({ privateKey, publicKey });
@@ -117,7 +116,6 @@ class WalletKeys extends React.Component {
 const mapStateToProps = state => ({
   open: state.wallet.walletKeysOpen,
   activeAccount: state.account.activeAccount,
-  network: state.app.network,
 });
 
 const mapDispatchToProps = {

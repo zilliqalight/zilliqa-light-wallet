@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography/Typography';
 import Button from '@material-ui/core/Button/Button';
 import AES from 'crypto-js/aes';
 
+import { verifyPrivateKey, getAddressFromPrivateKey } from '@zilliqa-js/crypto';
+
 import { hideImportPrivateKey, importPrivateKey } from '../actions/wallet';
 import Dialog from '@material-ui/core/Dialog/Dialog';
 import AppBar from '@material-ui/core/AppBar/AppBar';
@@ -20,7 +22,6 @@ import { backgroundPage } from '../utils/backgroundPage';
 import { localStorage } from '../utils/localStorage';
 import { showSnackbar } from '../actions/snackbar';
 import { setAccountInfo } from '../actions/account';
-import { createZilliqa } from '../utils/networks';
 import { SCREEN_WALLET, setScreen } from '../actions/app';
 
 class ImportPrivateKey extends Component {
@@ -46,7 +47,6 @@ class ImportPrivateKey extends Component {
 
   importPrivateKey = async () => {
     const {
-      network,
       setAccountInfo,
       hideImportPrivateKey,
       showSnackbar,
@@ -54,14 +54,12 @@ class ImportPrivateKey extends Component {
     } = this.props;
     const { privateKey } = this.state;
 
-    const zilliqa = createZilliqa(network);
-    if (!zilliqa.util.verifyPrivateKey(privateKey)) {
+    if (!verifyPrivateKey(privateKey)) {
       showSnackbar('Invalid private key! Please try again.');
       return;
     }
 
-    const address = zilliqa.util
-      .getAddressFromPrivateKey(privateKey)
+    const address = getAddressFromPrivateKey(privateKey)
       .toUpperCase();
     const passwordHashInBackground = await backgroundPage.getPasswordHash();
     const accounts = await localStorage.getAccounts();
@@ -156,7 +154,6 @@ class ImportPrivateKey extends Component {
 
 const mapStateToProps = state => ({
   open: state.wallet.importPrivateKeyOpen,
-  network: state.app.network,
 });
 
 const mapDispatchToProps = {

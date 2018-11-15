@@ -38,7 +38,6 @@ class AccountsMenu extends Component {
   };
 
   handleAccountsClose = async value => {
-    console.log(value);
     const {
       accounts,
       hideAccounts,
@@ -73,20 +72,19 @@ class AccountsMenu extends Component {
           if (activeAccount && activeAccount.address) {
             showSnackbar('Loading account details...');
             const zilliqa = createZilliqa(network);
-            const node = zilliqa.getNode();
-            node.getBalance(
-              { address: activeAccount.address },
-              (error, data) => {
-                if (error || data.error) {
-                  console.error(error);
-                } else {
-                  const activeAccountDetails = data.result;
-                  setActiveAccountDetails(activeAccountDetails);
-                  setAccountInfo(accounts, activeAccount);
-                  hideSnackbar();
-                }
+            try {
+              const data = await zilliqa.blockchain.getBalance(activeAccount.address);
+              if (data.error) {
+                console.error(data.error);
+              } else {
+                const activeAccountDetails = data.result;
+                setActiveAccountDetails(activeAccountDetails);
+                setAccountInfo(accounts, activeAccount);
+                hideSnackbar();
               }
-            );
+            } catch (e) {
+              console.error(e);
+            }
           }
         } else {
           showSnackbar('Fail to switch account.');

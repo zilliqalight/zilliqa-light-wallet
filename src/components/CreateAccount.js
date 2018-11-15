@@ -14,9 +14,10 @@ import PermIdentity from '@material-ui/icons/PermIdentity';
 
 import AES from 'crypto-js/aes';
 
+import { generatePrivateKey, verifyPrivateKey, getAddressFromPrivateKey } from '@zilliqa-js/crypto';
+
 import { generateMnemonicFromString } from '../utils/crypto';
 import { localStorage } from '../utils/localStorage';
-import { createZilliqa } from '../utils/networks';
 import { backgroundPage } from '../utils/backgroundPage';
 
 import { hideCreateAccount } from '../actions/wallet';
@@ -39,7 +40,6 @@ class CreateAccount extends Component {
 
   createAccount = async () => {
     const {
-      network,
       setAccountInfo,
       hideCreateAccount,
       showSnackbar,
@@ -47,15 +47,13 @@ class CreateAccount extends Component {
       showWalletBackup,
     } = this.props;
 
-    const zilliqa = createZilliqa(network);
-    const privateKey = zilliqa.util.generatePrivateKey().toUpperCase();
-    if (!zilliqa.util.verifyPrivateKey(privateKey)) {
+    const privateKey = generatePrivateKey().toUpperCase();
+    if (!verifyPrivateKey(privateKey)) {
       showSnackbar('Invalid private key! Please try again.');
       return;
     }
 
-    const address = zilliqa.util
-      .getAddressFromPrivateKey(privateKey)
+    const address = getAddressFromPrivateKey(privateKey)
       .toUpperCase();
     const passwordHashInBackground = await backgroundPage.getPasswordHash();
     const accounts = await localStorage.getAccounts();
@@ -141,7 +139,6 @@ class CreateAccount extends Component {
 
 const mapStateToProps = state => ({
   open: state.wallet.createAccountOpen,
-  network: state.app.network,
 });
 
 const mapDispatchToProps = {
