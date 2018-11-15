@@ -1,4 +1,4 @@
-# Zilliqa Light Wallet
+# Zilliqa Light Wallet (Monorepo)
 
 
 ![Zilliqa Light Wallet](https://github.com/zilliqalight/zilliqa-light-wallet/blob/master/assets/dashboard.png?v=1 "Zilliqa Light Wallet")
