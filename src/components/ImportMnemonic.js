@@ -16,10 +16,11 @@ import Button from '@material-ui/core/Button/Button';
 import AES from 'crypto-js/aes';
 import bip39 from 'bip39';
 
+import { verifyPrivateKey, getAddressFromPrivateKey } from '@zilliqa-js/crypto';
+
 import { isMnemonicValid } from '../utils/crypto';
 import { backgroundPage } from '../utils/backgroundPage';
 import { localStorage } from '../utils/localStorage';
-import { createZilliqa } from '../utils/networks';
 
 import Transition from './Transition';
 
@@ -51,7 +52,6 @@ class ImportMnemonic extends Component {
 
   importMnemonic = async () => {
     const {
-      network,
       setAccountInfo,
       hideImportMnemonic,
       showSnackbar,
@@ -65,14 +65,12 @@ class ImportMnemonic extends Component {
     }
 
     const privateKey = bip39.mnemonicToSeedHex(mnemonic).toUpperCase();
-    const zilliqa = createZilliqa(network);
-    if (!zilliqa.util.verifyPrivateKey(privateKey)) {
+    if (!verifyPrivateKey(privateKey)) {
       showSnackbar('Invalid private key! Please try again.');
       return;
     }
 
-    const address = zilliqa.util
-      .getAddressFromPrivateKey(privateKey)
+    const address = getAddressFromPrivateKey(privateKey)
       .toUpperCase();
     const passwordHashInBackground = await backgroundPage.getPasswordHash();
     const accounts = await localStorage.getAccounts();
@@ -167,7 +165,6 @@ class ImportMnemonic extends Component {
 
 const mapStateToProps = state => ({
   open: state.wallet.importMnemonicOpen,
-  network: state.app.network,
 });
 
 const mapDispatchToProps = {
