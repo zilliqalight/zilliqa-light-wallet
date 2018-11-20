@@ -14,7 +14,11 @@ import PermIdentity from '@material-ui/icons/PermIdentity';
 
 import AES from 'crypto-js/aes';
 
-import { generatePrivateKey, verifyPrivateKey, getAddressFromPrivateKey } from '@zilliqa-js/crypto';
+import {
+  generatePrivateKey,
+  verifyPrivateKey,
+  getAddressFromPrivateKey,
+} from '@zilliqa-js/crypto';
 
 import { generateMnemonicFromString } from '../utils/crypto';
 import { localStorage } from '../utils/localStorage';
@@ -53,8 +57,7 @@ class CreateAccount extends Component {
       return;
     }
 
-    const address = getAddressFromPrivateKey(privateKey)
-      .toUpperCase();
+    const address = getAddressFromPrivateKey(privateKey).toUpperCase();
     const passwordHashInBackground = await backgroundPage.getPasswordHash();
     const accounts = await localStorage.getAccounts();
     const encryptedPrivateKey = AES.encrypt(

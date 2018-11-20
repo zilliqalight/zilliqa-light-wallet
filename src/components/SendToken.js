@@ -74,12 +74,7 @@ class SendToken extends React.Component {
     const { sendTo, sendAmount, sendGasPrice, sendGasLimit } = this.state;
     this.setState({ isLoading: true });
 
-    const {
-      network,
-      showSnackbar,
-      hideSendToken,
-      activeAccount,
-    } = this.props;
+    const { network, showSnackbar, hideSendToken, activeAccount } = this.props;
 
     const zilliqa = createZilliqa(network);
 
@@ -89,9 +84,7 @@ class SendToken extends React.Component {
     try {
       // Populate the wallet with an account
       zilliqa.wallet.addByPrivateKey(privateKey);
-      showSnackbar(
-        'Submitting send transaction, please wait.'
-      );
+      showSnackbar('Submitting send transaction, please wait.');
 
       const tx = await zilliqa.blockchain.createTransaction(
         zilliqa.transactions.new({
@@ -108,7 +101,7 @@ class SendToken extends React.Component {
         showSnackbar(`Send failed, ${tx.error}, please retry later.`);
       } else {
         console.log('tx:', tx);
-        this.setState({ isLoading: true });
+        this.setState({ isLoading: true, toAddr: '', amount: 0 });
         showSnackbar(
           'Send transaction created, please refresh your account to check.'
         );

@@ -73,7 +73,9 @@ class AccountsMenu extends Component {
             showSnackbar('Loading account details...');
             const zilliqa = createZilliqa(network);
             try {
-              const data = await zilliqa.blockchain.getBalance(activeAccount.address);
+              const data = await zilliqa.blockchain.getBalance(
+                activeAccount.address
+              );
               if (data.error) {
                 console.error(data.error);
               } else {

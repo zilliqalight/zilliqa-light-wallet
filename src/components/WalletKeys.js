@@ -36,8 +36,7 @@ class WalletKeys extends React.Component {
     const { activeAccount } = this.props;
     const { encryptedPrivateKey } = activeAccount;
     const privateKey = await getActivePrivateKey(encryptedPrivateKey);
-    const publicKey = getPubKeyFromPrivateKey(privateKey)
-      .toUpperCase();
+    const publicKey = getPubKeyFromPrivateKey(privateKey).toUpperCase();
 
     this.setState({ privateKey, publicKey });
   };
