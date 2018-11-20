@@ -26,8 +26,8 @@ class SendToken extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sendTo: '4F15075AC102FE6C50964F5174D5D8239D3091FA',
-      sendAmount: 100,
+      sendTo: '',
+      sendAmount: 0,
       sendGasPrice: 1,
       sendGasLimit: 10,
       isLoading: false,
@@ -78,7 +78,6 @@ class SendToken extends React.Component {
       network,
       showSnackbar,
       hideSendToken,
-      activeAccountDetails,
       activeAccount,
     } = this.props;
 
@@ -90,39 +89,35 @@ class SendToken extends React.Component {
     try {
       // Populate the wallet with an account
       zilliqa.wallet.addByPrivateKey(privateKey);
+      showSnackbar(
+        'Submitting send transaction, please wait.'
+      );
 
-      // transaction details
-      const tx = zilliqa.transactions.new({
-        version: 1,
-        toAddr: sendTo,
-        nonce: activeAccountDetails.nonce + 1,
-        amount: new BN(sendAmount),
-        gasPrice: new BN(sendGasPrice),
-        gasLimit: new BN(sendGasLimit),
-      });
-      console.log('txDetails', tx);
-
-      debugger;
-      const data = await zilliqa.blockchain.createTransaction(tx);
-      console.log(data);
-      if (data.error) {
-        console.error(data.error);
+      const tx = await zilliqa.blockchain.createTransaction(
+        zilliqa.transactions.new({
+          version: 1,
+          toAddr: sendTo,
+          amount: new BN(sendAmount),
+          gasPrice: new BN(sendGasPrice),
+          gasLimit: new BN(sendGasLimit),
+        })
+      );
+      if (tx.error) {
+        console.error(tx.error);
         this.setState({ isLoading: false });
-        showSnackbar(`Sent failed, ${data.error}, please retry later.`);
+        showSnackbar(`Send failed, ${tx.error}, please retry later.`);
       } else {
-        const tx = data.result;
         console.log('tx:', tx);
-        console.log('data:', data);
         this.setState({ isLoading: true });
         showSnackbar(
-          'Sent transaction created, please refresh your account to check.'
+          'Send transaction created, please refresh your account to check.'
         );
         hideSendToken();
       }
     } catch (error) {
       this.setState({ isLoading: false });
       console.error(error);
-      showSnackbar(`Sent failed, ${error}, please retry later.`);
+      showSnackbar(`Send failed, ${error}, please retry later.`);
     }
   };
 
