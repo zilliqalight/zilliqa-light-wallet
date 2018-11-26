@@ -27,25 +27,25 @@ import logoZIL from '../images/logo_zil.svg';
 
 class Dashboard extends React.Component {
   componentDidMount() {
-    this.loadActiveAccountDetails();
+    this.loadActiveAccountDetails(true);
   }
 
-  // componentDidUpdate(prevProps, prevState, snapshot) {
-  //   // When close send token popup
-  //   if (
-  //     !this.props.sendTokenOpen &&
-  //     prevProps.sendTokenOpen !== this.props.sendTokenOpen
-  //   ) {
-  //     this.loadActiveAccountDetails();
-  //   }
-  // }
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    // When close send token popup
+    if (
+      !this.props.sendTokenOpen &&
+      prevProps.sendTokenOpen !== this.props.sendTokenOpen
+    ) {
+      this.loadActiveAccountDetails(false);
+    }
+  }
 
   showAccounts = async event => {
     const { showAccounts } = this.props;
     showAccounts(event.currentTarget);
   };
 
-  loadActiveAccountDetails = async () => {
+  loadActiveAccountDetails = async openSnackbar => {
     const {
       activeAccount,
       network,
@@ -54,7 +54,9 @@ class Dashboard extends React.Component {
       setActiveAccountDetails,
     } = this.props;
     if (activeAccount && activeAccount.address) {
-      showSnackbar('Loading account details...');
+      if (openSnackbar) {
+        showSnackbar('Loading account details...');
+      }
       const zilliqa = createZilliqa(network);
       try {
         const data = await zilliqa.blockchain.getBalance(activeAccount.address);
@@ -63,7 +65,9 @@ class Dashboard extends React.Component {
         } else {
           const activeAccountDetails = data.result;
           setActiveAccountDetails(activeAccountDetails);
-          hideSnackbar();
+          if (openSnackbar) {
+            hideSnackbar();
+          }
         }
       } catch (e) {
         console.error(e);

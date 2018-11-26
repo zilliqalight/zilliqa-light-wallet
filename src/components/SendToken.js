@@ -12,6 +12,8 @@ import Card from '@material-ui/core/Card/Card';
 import TextField from '@material-ui/core/TextField/TextField';
 import Button from '@material-ui/core/Button/Button';
 import Send from '@material-ui/icons/Send';
+import LinearProgress from '@material-ui/core/LinearProgress';
+
 import BN from 'bn.js';
 
 import { getActivePrivateKey, isAddress } from '../utils/crypto';
@@ -102,13 +104,13 @@ class SendToken extends React.Component {
 
       if (tx.isRejected()) {
         this.setState({ isLoading: false });
-        showSnackbar(`Transaction failed, you may need to adjust the gas price. Please retry again.`);
+        showSnackbar(
+          `Transaction failed, you may need to adjust the gas price. Please retry again.`
+        );
       } else {
         console.log('tx:', tx);
-        this.setState({ isLoading: true, toAddr: '', amount: 0 });
-        showSnackbar(
-          'Sent successfully!'
-        );
+        this.setState({ isLoading: false, sendTo: '', sendAmount: 0 });
+        showSnackbar('Sent successfully!');
         hideSendToken();
       }
     } catch (error) {
@@ -117,6 +119,19 @@ class SendToken extends React.Component {
       showSnackbar(`Send failed, ${error}, please retry later.`);
     }
   };
+
+  renderSending() {
+    if (this.isSending()) {
+      return (
+        <div>
+          <p>Submitting send transaction, please wait...</p>
+          <LinearProgress />
+        </div>
+      );
+    }
+
+    return null;
+  }
 
   render() {
     const { open, hideSendToken, activeAccount } = this.props;
@@ -207,6 +222,7 @@ class SendToken extends React.Component {
             >
               Send <Send className="send-button-icon" />
             </Button>
+            {this.renderSending()}
           </Card>
         </div>
       </Dialog>
