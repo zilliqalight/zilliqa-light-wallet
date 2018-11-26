@@ -70,6 +70,11 @@ class SendToken extends React.Component {
     );
   };
 
+  isSending = () => {
+    const { isLoading } = this.state;
+    return !!isLoading;
+  };
+
   sendToken = async () => {
     const { sendTo, sendAmount, sendGasPrice, sendGasLimit } = this.state;
     this.setState({ isLoading: true });
@@ -77,14 +82,13 @@ class SendToken extends React.Component {
     const { network, showSnackbar, hideSendToken, activeAccount } = this.props;
 
     const zilliqa = createZilliqa(network);
-
     const { encryptedPrivateKey } = activeAccount;
     const privateKey = await getActivePrivateKey(encryptedPrivateKey);
 
     try {
       // Populate the wallet with an account
       zilliqa.wallet.addByPrivateKey(privateKey);
-      showSnackbar('Submitting send transaction, please wait.');
+      showSnackbar('Submitting send transaction, please wait...');
 
       const tx = await zilliqa.blockchain.createTransaction(
         zilliqa.transactions.new({
@@ -95,15 +99,15 @@ class SendToken extends React.Component {
           gasLimit: new BN(sendGasLimit),
         })
       );
-      if (tx.error) {
-        console.error(tx.error);
+
+      if (tx.isRejected()) {
         this.setState({ isLoading: false });
-        showSnackbar(`Send failed, ${tx.error}, please retry later.`);
+        showSnackbar(`Transaction failed, you may need to adjust the gas price. Please retry again.`);
       } else {
         console.log('tx:', tx);
         this.setState({ isLoading: true, toAddr: '', amount: 0 });
         showSnackbar(
-          'Send transaction created, please refresh your account to check.'
+          'Sent successfully!'
         );
         hideSendToken();
       }
@@ -155,6 +159,7 @@ class SendToken extends React.Component {
               value={sendTo}
               onChange={this.handleAddressChange}
               margin="normal"
+              disabled={this.isSending()}
             />
             <TextField
               required
@@ -166,6 +171,7 @@ class SendToken extends React.Component {
               margin="normal"
               type="number"
               placeholder="0.00"
+              disabled={this.isSending()}
             />
             <TextField
               required
@@ -177,6 +183,7 @@ class SendToken extends React.Component {
               margin="normal"
               type="number"
               placeholder="0.00"
+              disabled={this.isSending()}
             />
             <TextField
               required
@@ -188,6 +195,7 @@ class SendToken extends React.Component {
               margin="normal"
               type="number"
               placeholder="0.00"
+              disabled={this.isSending()}
             />
             <Button
               id="send-token-button"
