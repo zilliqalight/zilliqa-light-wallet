@@ -29,12 +29,21 @@ class WalletKeys extends React.Component {
   }
 
   componentDidMount() {
-    this.getKeys();
+    this.getKeys(this.props.activeAccount);
   }
 
-  getKeys = async () => {
-    const { activeAccount } = this.props;
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.activeAccount !== prevProps.activeAccount) {
+      this.getKeys(this.props.activeAccount);
+    }
+  }
+
+  getKeys = async (activeAccount) => {
     const { encryptedPrivateKey } = activeAccount;
+    if (!encryptedPrivateKey) {
+      return;
+    }
     const privateKey = await getActivePrivateKey(encryptedPrivateKey);
     const publicKey = getPubKeyFromPrivateKey(privateKey).toUpperCase();
 
@@ -52,6 +61,8 @@ class WalletKeys extends React.Component {
     if (!publicKey) {
       return null;
     }
+    console.log(this.props);
+    console.log(this.state);
 
     return (
       <Dialog
