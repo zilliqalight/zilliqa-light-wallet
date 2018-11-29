@@ -38,7 +38,7 @@ class WalletKeys extends React.Component {
     const privateKey = await getActivePrivateKey(encryptedPrivateKey);
     const publicKey = getPubKeyFromPrivateKey(privateKey).toUpperCase();
 
-    this.setState({ privateKey, publicKey });
+    this.setState({ publicKey });
   };
 
   handleCopyToClipBoard = () => {
@@ -48,8 +48,8 @@ class WalletKeys extends React.Component {
 
   render() {
     const { open, hideWalletKeys } = this.props;
-    const { privateKey, publicKey } = this.state;
-    if (!privateKey || !publicKey) {
+    const { publicKey } = this.state;
+    if (!publicKey) {
       return null;
     }
 
@@ -77,21 +77,6 @@ class WalletKeys extends React.Component {
           </Toolbar>
         </AppBar>
         <div>
-          <Card className="card">
-            <div className="balance">
-              Private Key
-              <CopyToClipboard
-                text={privateKey}
-                onCopy={this.handleCopyToClipBoard}
-              >
-                <IconButton>
-                  <FileCopyIcon />
-                </IconButton>
-              </CopyToClipboard>
-            </div>
-            <div className="key">{privateKey}</div>
-          </Card>
-
           <Card className="card">
             <div className="balance">
               Public Key

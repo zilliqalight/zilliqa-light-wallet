@@ -126,7 +126,7 @@ class Dashboard extends React.Component {
 
           <div className="balance">
             Address
-            <Tooltip title="Show Private Key">
+            <Tooltip title="Show Keys">
               <IconButton aria-label="Details" onClick={showWalletKeys}>
                 <VpnKey />
               </IconButton>
