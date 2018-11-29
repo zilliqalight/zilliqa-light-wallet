@@ -14,6 +14,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { getPubKeyFromPrivateKey } from '@zilliqa-js/crypto';
+import { Account } from '@zilliqa-js/account';
 
 import { getActivePrivateKey } from '../utils/crypto';
 
@@ -21,6 +22,8 @@ import Transition from './Transition';
 
 import { hideWalletKeys } from '../actions/wallet';
 import { showSnackbar } from '../actions/snackbar';
+
+import { localStorage } from '../utils/localStorage';
 
 class WalletKeys extends React.Component {
   constructor(props) {
@@ -37,8 +40,16 @@ class WalletKeys extends React.Component {
     const { encryptedPrivateKey } = activeAccount;
     const privateKey = await getActivePrivateKey(encryptedPrivateKey);
     const publicKey = getPubKeyFromPrivateKey(privateKey).toUpperCase();
+    console.log(`privateKey:${privateKey}`);
 
-    this.setState({ publicKey });
+    const account = new Account(privateKey);
+    const keystore = await account.toFile('stronk_password');
+
+    console.log('downloadData start')
+    await localStorage.downloadData(keystore);
+    console.log('downloadData complete')
+
+    this.setState({ keystore, publicKey });
   };
 
   handleCopyToClipBoard = () => {
@@ -48,8 +59,8 @@ class WalletKeys extends React.Component {
 
   render() {
     const { open, hideWalletKeys } = this.props;
-    const { publicKey } = this.state;
-    if (!publicKey) {
+    const { keystore, publicKey } = this.state;
+    if (!keystore || !publicKey) {
       return null;
     }
 
@@ -77,6 +88,21 @@ class WalletKeys extends React.Component {
           </Toolbar>
         </AppBar>
         <div>
+          <Card className="card">
+            <div className="balance">
+              keystore
+              <CopyToClipboard
+                text={keystore}
+                onCopy={this.handleCopyToClipBoard}
+              >
+                <IconButton>
+                  <FileCopyIcon />
+                </IconButton>
+              </CopyToClipboard>
+            </div>
+            <div className="key">{keystore}</div>
+          </Card>
+
           <Card className="card">
             <div className="balance">
               Public Key

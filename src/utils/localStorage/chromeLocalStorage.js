@@ -87,6 +87,19 @@ const getNetworkOrDefault = () => {
   });
 };
 
+const downloadData = (data) => {
+  return new Promise(resolve => {
+    var blob = new window.Blob([data], {type: "text/plain"});
+    var url = window.URL.createObjectURL(blob);
+    chrome.downloads.download({
+      url: url // The object URL can be used as download URL
+      //...
+    });
+
+    resolve(true);
+  });
+};
+
 export const localStorage = {
   getOrCreateAppSalt,
   setPasswordHash,
@@ -95,4 +108,5 @@ export const localStorage = {
   getAccounts,
   setNetwork,
   getNetworkOrDefault,
+  downloadData,
 };
