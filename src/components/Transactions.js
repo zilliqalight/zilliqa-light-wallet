@@ -39,6 +39,14 @@ class Transactions extends React.Component {
     window.open(`${EXPLORER_ADDRESS_URL}${activeAccount.address}`, '_blank');
   };
 
+  renderColor(from, to) {
+    const { activeAccount } = this.props;
+    if (activeAccount.address === to.toUpperCase()) {
+      return 'green';
+    }
+    return 'red';
+  }
+
   renderFromOrTo(from, to) {
     const { activeAccount } = this.props;
     if (activeAccount.address === to.toUpperCase()) {
@@ -73,6 +81,7 @@ class Transactions extends React.Component {
               console.log(transaction);
               const amount = transaction.value;
               const txURL = `${EXPLORER_TX_URL}${transaction.hash}`;
+              const color = this.renderColor(transaction.from, transaction.to)
               return (
                 <TableRow key={transaction.hash}>
                   <TableCell
@@ -88,7 +97,7 @@ class Transactions extends React.Component {
                     </a>
                   </TableCell>
                   <TableCell className="transactions-addresses">
-                    {this.renderFromOrTo(transaction.from, transaction.to)}
+                  <span class={color}> {this.renderFromOrTo(transaction.from, transaction.to)} </span>
                   </TableCell>
                   <TableCell className="transactions-amount" numeric>
                     {amount}
