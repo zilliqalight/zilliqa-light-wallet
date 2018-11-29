@@ -8,11 +8,11 @@ Currently it uses below TESTNET details.
 
 scilla-test-api: 
 
-https://dev-test-api.aws.z7a.xyz
+https://api-scilla.zilliqa.com
 
 scilla-test-explorer: 
 
-https://dev-test-explorer.aws.z7a.xyz
+https://explorer-scilla.zilliqa.com
 
 
 iqznc-scilla-wallet: 

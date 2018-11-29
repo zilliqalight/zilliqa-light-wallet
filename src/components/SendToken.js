@@ -14,7 +14,7 @@ import Button from '@material-ui/core/Button/Button';
 import Send from '@material-ui/icons/Send';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import BN from 'bn.js';
+import { BN, Long } from '@zilliqa-js/util';
 
 import { getActivePrivateKey, isAddress } from '../utils/crypto';
 import { createZilliqa } from '../utils/networks';
@@ -30,8 +30,8 @@ class SendToken extends React.Component {
     this.state = {
       sendTo: '',
       sendAmount: 0,
-      sendGasPrice: 1,
-      sendGasLimit: 10,
+      sendGasPrice: 100,
+      sendGasLimit: 1,
       isLoading: false,
     };
   }
@@ -98,7 +98,7 @@ class SendToken extends React.Component {
           toAddr: sendTo,
           amount: new BN(sendAmount),
           gasPrice: new BN(sendGasPrice),
-          gasLimit: new BN(sendGasLimit),
+          gasLimit: Long.fromNumber(sendGasLimit),
         })
       );
 

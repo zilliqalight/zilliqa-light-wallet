@@ -92,7 +92,7 @@ class Transactions extends React.Component {
                     {moment(transaction.timestamp).format('MMM Do, h:mm:ss a')}
                     <br />
                     <br />
-                    <a href={txURL} className="tx-link" target="_blank">
+                    <a href={txURL} className="tx-link" target="_blank" rel="noopener noreferrer">
                       {getTxAbbreviation(transaction.hash)}
                     </a>
                   </TableCell>
