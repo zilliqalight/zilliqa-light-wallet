@@ -14,6 +14,8 @@ scilla-test-explorer:
 
 https://explorer-scilla.zilliqa.com
 
+https://viewblock.io/zilliqa (Community project)
+
 
 iqznc-scilla-wallet: 
 
