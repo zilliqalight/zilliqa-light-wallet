@@ -78,7 +78,6 @@ class Transactions extends React.Component {
           </TableHead>
           <TableBody>
             {transactions.map(transaction => {
-              console.log(transaction);
               const amount = transaction.value;
               const txURL = `${EXPLORER_TX_URL}${transaction.hash}`;
               const color = this.renderColor(transaction.from, transaction.to)
@@ -97,7 +96,7 @@ class Transactions extends React.Component {
                     </a>
                   </TableCell>
                   <TableCell className="transactions-addresses">
-                  <span class={color}> {this.renderFromOrTo(transaction.from, transaction.to)} </span>
+                  <span className={color}> {this.renderFromOrTo(transaction.from, transaction.to)} </span>
                   </TableCell>
                   <TableCell className="transactions-amount" numeric>
                     {amount}
