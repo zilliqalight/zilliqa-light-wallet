@@ -10,6 +10,10 @@ import Typography from '@material-ui/core/Typography/Typography';
 import Card from '@material-ui/core/Card/Card';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import CloseIcon from '@material-ui/icons/Close';
+import TextField from '@material-ui/core/TextField/TextField';
+import Button from '@material-ui/core/Button/Button';
+
+import passwordValidator from 'password-validator';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
@@ -28,38 +32,77 @@ import { localStorage } from '../utils/localStorage';
 class WalletKeys extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      password: '',
+      activeAccount: this.props.activeAccount
+    };
+    this.disableSubmit = this.disableSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-    this.getKeys(this.props.activeAccount);
+   this.setState({activeAccount: this.props.activeAccount});
   }
 
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
     if (this.props.activeAccount !== prevProps.activeAccount) {
-      this.getKeys(this.props.activeAccount);
+      this.setState({activeAccount: this.props.activeAccount});
     }
   }
 
-  getKeys = async (activeAccount) => {
-    const { encryptedPrivateKey } = activeAccount;
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
+  disableSubmit() {
+    return !this.isAppPasswordValid(this.state.password);
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    console.log(this.state.password);
+    this.downloadData(this.state.password);
+  }
+
+  isAppPasswordValid = () => {
+    const { password } = this.state;
+    const schema = new passwordValidator();
+    schema
+      .is()
+      .min(6) // Minimum length 6
+      .is()
+      .max(20) // Maximum length 20
+      .has()
+      .not()
+      .spaces(); // Should not have spaces
+
+    return password && schema.validate(password);
+  };
+
+  downloadData = async (pwd) => {
+    
+    const { hideWalletKeys } = this.props;
+    const { encryptedPrivateKey } = this.state.activeAccount;
     if (!encryptedPrivateKey) {
       return;
     }
     const privateKey = await getActivePrivateKey(encryptedPrivateKey);
-    const publicKey = getPubKeyFromPrivateKey(privateKey).toUpperCase();
-    console.log(`privateKey:${privateKey}`);
-
+   
     const account = new Account(privateKey);
-    const keystore = await account.toFile('stronk_password');
+    const keystore = await account.toFile(pwd);
 
-    console.log('downloadData start')
     await localStorage.downloadData(keystore);
-    console.log('downloadData complete')
 
-    this.setState({ keystore, publicKey });
+    this.state.password = '';
+
+    hideWalletKeys();
+
   };
+
+
+
 
   handleCopyToClipBoard = () => {
     const { showSnackbar } = this.props;
@@ -68,12 +111,6 @@ class WalletKeys extends React.Component {
 
   render() {
     const { open, hideWalletKeys } = this.props;
-    const { keystore, publicKey } = this.state;
-    if (!keystore || !publicKey) {
-      return null;
-    }
-    console.log(this.props);
-    console.log(this.state);
 
     return (
       <Dialog
@@ -94,39 +131,31 @@ class WalletKeys extends React.Component {
               </IconButton>
             </Tooltip>
             <Typography variant="h6" color="inherit">
-              Keys
+              Backup Keystore
             </Typography>
           </Toolbar>
         </AppBar>
         <div>
           <Card className="card">
-            <div className="balance">
-              keystore
-              <CopyToClipboard
-                text={keystore}
-                onCopy={this.handleCopyToClipBoard}
-              >
-                <IconButton>
-                  <FileCopyIcon />
-                </IconButton>
-              </CopyToClipboard>
-            </div>
-            <div className="key">{keystore}</div>
-          </Card>
-
-          <Card className="card">
-            <div className="balance">
-              Public Key
-              <CopyToClipboard
-                text={publicKey}
-                onCopy={this.handleCopyToClipBoard}
-              >
-                <IconButton>
-                  <FileCopyIcon />
-                </IconButton>
-              </CopyToClipboard>
-            </div>
-            <div className="key">{publicKey}</div>
+            <TextField
+            label="Password"
+            className="private-key-field"
+            type="password"
+            autoComplete="off"
+            name="password"
+            value={this.state.password}
+            onChange={this.handleChange}
+            helperText="Your passphrase (6-20 characters)"
+            margin="normal"
+          />
+          <Button
+            className="sign-in-button button"
+            color="secondary"
+            variant="contained"
+            disabled={!this.isAppPasswordValid()}
+            onClick={this.handleSubmit}
+          >Download
+          </Button>
           </Card>
         </div>
       </Dialog>
