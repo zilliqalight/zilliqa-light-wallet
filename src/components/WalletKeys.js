@@ -30,7 +30,7 @@ class WalletKeys extends React.Component {
     super(props);
     this.state = {
       password: '',
-      activeAccount: this.props.activeAccount
+      activeAccount: this.props.activeAccount,
     };
     this.disableSubmit = this.disableSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -38,13 +38,13 @@ class WalletKeys extends React.Component {
   }
 
   componentDidMount() {
-   this.setState({activeAccount: this.props.activeAccount});
+    this.setState({ activeAccount: this.props.activeAccount });
   }
 
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
     if (this.props.activeAccount !== prevProps.activeAccount) {
-      this.setState({activeAccount: this.props.activeAccount});
+      this.setState({ activeAccount: this.props.activeAccount });
     }
   }
 
@@ -77,15 +77,14 @@ class WalletKeys extends React.Component {
     return password && schema.validate(password);
   };
 
-  downloadData = async (pwd) => {
-
-    const { hideWalletKeys , showSnackbar } = this.props;
+  downloadData = async pwd => {
+    const { hideWalletKeys, showSnackbar } = this.props;
     const { encryptedPrivateKey } = this.state.activeAccount;
     if (!encryptedPrivateKey) {
       return;
     }
     const privateKey = await getActivePrivateKey(encryptedPrivateKey);
-   
+
     const account = new Account(privateKey);
     const keystore = await account.toFile(pwd);
 
@@ -96,9 +95,7 @@ class WalletKeys extends React.Component {
     showSnackbar('Downloading keystore file...');
 
     hideWalletKeys();
-
   };
-
 
   render() {
     const { open, hideWalletKeys } = this.props;
@@ -129,24 +126,25 @@ class WalletKeys extends React.Component {
         <div>
           <Card className="card">
             <TextField
-            label="Password"
-            className="private-key-field"
-            type="password"
-            autoComplete="off"
-            name="password"
-            value={this.state.password}
-            onChange={this.handleChange}
-            helperText="Your passphrase (6-20 characters)"
-            margin="normal"
-          />
-          <Button
-            className="sign-in-button button"
-            color="secondary"
-            variant="contained"
-            disabled={!this.isAppPasswordValid()}
-            onClick={this.handleSubmit}
-          >Download
-          </Button>
+              label="Password"
+              className="private-key-field"
+              type="password"
+              autoComplete="off"
+              name="password"
+              value={this.state.password}
+              onChange={this.handleChange}
+              helperText="Your passphrase (6-20 characters)"
+              margin="normal"
+            />
+            <Button
+              className="sign-in-button button"
+              color="secondary"
+              variant="contained"
+              disabled={!this.isAppPasswordValid()}
+              onClick={this.handleSubmit}
+            >
+              Download
+            </Button>
           </Card>
         </div>
       </Dialog>

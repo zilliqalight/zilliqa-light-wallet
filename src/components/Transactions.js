@@ -80,7 +80,7 @@ class Transactions extends React.Component {
             {transactions.map(transaction => {
               const amount = transaction.value;
               const txURL = `${EXPLORER_TX_URL}${transaction.hash}`;
-              const color = this.renderColor(transaction.from, transaction.to)
+              const color = this.renderColor(transaction.from, transaction.to);
               return (
                 <TableRow key={transaction.hash}>
                   <TableCell
@@ -91,12 +91,23 @@ class Transactions extends React.Component {
                     {moment(transaction.timestamp).format('MMM Do, h:mm:ss a')}
                     <br />
                     <br />
-                    <a href={txURL} className="tx-link" target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={txURL}
+                      className="tx-link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {getTxAbbreviation(transaction.hash)}
                     </a>
                   </TableCell>
                   <TableCell className="transactions-addresses">
-                  <span className={color}> {this.renderFromOrTo(transaction.from, transaction.to)} </span>
+                    <span className={color}>
+                      {' '}
+                      {this.renderFromOrTo(
+                        transaction.from,
+                        transaction.to
+                      )}{' '}
+                    </span>
                   </TableCell>
                   <TableCell className="transactions-amount" numeric>
                     {amount}

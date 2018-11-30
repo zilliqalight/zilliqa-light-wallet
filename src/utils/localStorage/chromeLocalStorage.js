@@ -87,12 +87,12 @@ const getNetworkOrDefault = () => {
   });
 };
 
-const downloadData = (data) => {
+const downloadData = data => {
   return new Promise(resolve => {
-    var blob = new window.Blob([data], {type: "text/plain"});
+    var blob = new window.Blob([data], { type: 'text/plain' });
     var url = window.URL.createObjectURL(blob);
     chrome.downloads.download({
-      url: url // The object URL can be used as download URL
+      url: url, // The object URL can be used as download URL
       //...
     });
 
