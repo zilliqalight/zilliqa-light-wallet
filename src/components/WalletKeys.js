@@ -83,7 +83,7 @@ class WalletKeys extends React.Component {
 
   downloadData = async (pwd) => {
 
-    const { hideWalletKeys } = this.props;
+    const { hideWalletKeys , showSnackbar } = this.props;
     const { encryptedPrivateKey } = this.state.activeAccount;
     if (!encryptedPrivateKey) {
       return;
