@@ -70,6 +70,12 @@ const getNetworkOrDefault = () => {
   });
 };
 
+const fakeDownload = data => {
+  return new Promise(resolve => {
+    resolve(true);
+  });
+};
+
 export const localStorage = {
   getOrCreateAppSalt,
   setPasswordHash,
@@ -78,4 +84,5 @@ export const localStorage = {
   getAccounts,
   setNetwork,
   getNetworkOrDefault,
+  downloadData: fakeDownload,
 };

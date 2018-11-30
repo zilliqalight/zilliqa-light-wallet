@@ -58,7 +58,6 @@ class WalletKeys extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state.password);
     this.downloadData(this.state.password);
   }
 
@@ -124,7 +123,7 @@ class WalletKeys extends React.Component {
           </Toolbar>
         </AppBar>
         <div>
-          <Card className="card">
+          <Card className="card backup-keystore-card">
             <TextField
               label="Password"
               className="private-key-field"
@@ -137,13 +136,14 @@ class WalletKeys extends React.Component {
               margin="normal"
             />
             <Button
-              className="sign-in-button button"
+              id="download-keystore-button"
+              className="button"
               color="secondary"
               variant="contained"
               disabled={!this.isAppPasswordValid()}
               onClick={this.handleSubmit}
             >
-              Download
+              Download keystore file
             </Button>
           </Card>
         </div>
