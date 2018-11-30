@@ -82,7 +82,7 @@ class WalletKeys extends React.Component {
   };
 
   downloadData = async (pwd) => {
-    
+
     const { hideWalletKeys } = this.props;
     const { encryptedPrivateKey } = this.state.activeAccount;
     if (!encryptedPrivateKey) {
@@ -97,17 +97,12 @@ class WalletKeys extends React.Component {
 
     this.state.password = '';
 
+    showSnackbar('Downloading keystore file...');
+
     hideWalletKeys();
 
   };
 
-
-
-
-  handleCopyToClipBoard = () => {
-    const { showSnackbar } = this.props;
-    showSnackbar('Copied to clipboard.');
-  };
 
   render() {
     const { open, hideWalletKeys } = this.props;
