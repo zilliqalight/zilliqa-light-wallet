@@ -14,13 +14,13 @@ import { createZilliqa } from '../utils/networks';
 
 import AccountsMenu from './AccountsMenu';
 import ChangeNetwork from './ChangeNetwork';
-import WalletKeys from './WalletKeys';
+import BackupKeystore from './BackupKeystore';
 import WalletBackup from './WalletBackup';
 import Price from './Price';
 
 import { hideAccounts, showAccounts } from '../actions/dashboard';
 import { hideSnackbar, showSnackbar } from '../actions/snackbar';
-import { showWalletKeys } from '../actions/wallet';
+import { showBackupKeystore } from '../actions/wallet';
 import { setActiveAccountDetails } from '../actions/account';
 
 import logoZIL from '../images/logo_zil.svg';
@@ -86,7 +86,7 @@ class Dashboard extends React.Component {
       );
     }
 
-    const { activeAccount, showWalletKeys } = this.props;
+    const { activeAccount, showBackupKeystore } = this.props;
     const { balance } = activeAccountDetails;
     const { address } = activeAccount;
     const identiconImage = getIdenticonImage(address);
@@ -127,7 +127,7 @@ class Dashboard extends React.Component {
           <div className="balance">
             Address
             <Tooltip title="Backup Keystore">
-              <IconButton aria-label="Details" onClick={showWalletKeys}>
+              <IconButton aria-label="Details" onClick={showBackupKeystore}>
                 <VpnKey />
               </IconButton>
             </Tooltip>
@@ -135,7 +135,7 @@ class Dashboard extends React.Component {
           </div>
         </Card>
         <AccountsMenu />
-        <WalletKeys />
+        <BackupKeystore />
         <ChangeNetwork />
         <WalletBackup />
       </div>
@@ -157,7 +157,7 @@ const mapDispatchToProps = {
   showAccounts,
   hideAccounts,
   setActiveAccountDetails,
-  showWalletKeys,
+  showBackupKeystore,
 };
 
 export default connect(

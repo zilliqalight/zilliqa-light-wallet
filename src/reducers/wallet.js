@@ -6,7 +6,7 @@ import {
   SHOW_IMPORT_PRIVATE_KEY,
   SHOW_RECEIVE_TOKEN,
   SHOW_SEND_TOKEN,
-  SHOW_WALLET_KEYS,
+  SHOW_BACKUP_KEYSTORE,
   SHOW_WALLET_BACKUP,
   SHOW_WALLET_RESET,
 } from '../actions/wallet';
@@ -17,7 +17,7 @@ const initialState = {
   createAccountOpen: false,
   importMnemonicOpen: false,
   importPrivateKeyOpen: false,
-  walletKeysOpen: false,
+  backupKeystoreOpen: false,
   walletBackupOpen: false,
   walletResetOpen: false,
 };
@@ -29,7 +29,7 @@ export function walletReducer(state = initialState, action) {
     case SHOW_CREATE_ACCOUNT:
     case SHOW_SEND_TOKEN:
     case SHOW_RECEIVE_TOKEN:
-    case SHOW_WALLET_KEYS:
+    case SHOW_BACKUP_KEYSTORE:
     case SHOW_WALLET_BACKUP:
     case SHOW_WALLET_RESET:
     case IMPORT_PRIVATE_KEY: {

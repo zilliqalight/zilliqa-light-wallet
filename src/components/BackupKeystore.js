@@ -9,8 +9,8 @@ import IconButton from '@material-ui/core/IconButton/IconButton';
 import Typography from '@material-ui/core/Typography/Typography';
 import Card from '@material-ui/core/Card/Card';
 import CloseIcon from '@material-ui/icons/Close';
-import TextField from '@material-ui/core/TextField/TextField';
-import Button from '@material-ui/core/Button/Button';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 import passwordValidator from 'password-validator';
 
@@ -20,12 +20,12 @@ import { getActivePrivateKey } from '../utils/crypto';
 
 import Transition from './Transition';
 
-import { hideWalletKeys } from '../actions/wallet';
+import { hideBackupKeystore } from '../actions/wallet';
 import { showSnackbar } from '../actions/snackbar';
 
 import { localStorage } from '../utils/localStorage';
 
-class WalletKeys extends React.Component {
+class BackupKeystore extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -77,7 +77,7 @@ class WalletKeys extends React.Component {
   };
 
   downloadData = async pwd => {
-    const { hideWalletKeys, showSnackbar } = this.props;
+    const { hideBackupKeystore, showSnackbar } = this.props;
     const { encryptedPrivateKey } = this.state.activeAccount;
     if (!encryptedPrivateKey) {
       return;
@@ -93,17 +93,17 @@ class WalletKeys extends React.Component {
 
     showSnackbar('Downloading keystore file...');
 
-    hideWalletKeys();
+    hideBackupKeystore();
   };
 
   render() {
-    const { open, hideWalletKeys } = this.props;
+    const { open, hideBackupKeystore } = this.props;
 
     return (
       <Dialog
         fullScreen
         open={open}
-        onClose={hideWalletKeys}
+        onClose={hideBackupKeystore}
         TransitionComponent={Transition}
       >
         <AppBar position="static" className="appBar">
@@ -111,7 +111,7 @@ class WalletKeys extends React.Component {
             <Tooltip title="Close">
               <IconButton
                 color="inherit"
-                onClick={hideWalletKeys}
+                onClick={hideBackupKeystore}
                 aria-label="Close"
               >
                 <CloseIcon />
@@ -153,16 +153,16 @@ class WalletKeys extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  open: state.wallet.walletKeysOpen,
+  open: state.wallet.backupKeystoreOpen,
   activeAccount: state.account.activeAccount,
 });
 
 const mapDispatchToProps = {
-  hideWalletKeys,
+  hideBackupKeystore,
   showSnackbar,
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(WalletKeys);
+)(BackupKeystore);

@@ -92,7 +92,7 @@ const downloadData = data => {
     var blob = new window.Blob([data], { type: 'text/plain' });
     var url = window.URL.createObjectURL(blob);
     chrome.downloads.download({
-      url: url, // The object URL can be used as download URL
+      url // The object URL can be used as download URL
     });
 
     resolve(true);

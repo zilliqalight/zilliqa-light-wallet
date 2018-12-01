@@ -5,7 +5,7 @@ export const SHOW_IMPORT_MNEMONIC = 'SHOW_IMPORT_MNEMONIC';
 export const SHOW_CREATE_ACCOUNT = 'SHOW_CREATE_ACCOUNT';
 export const SHOW_SEND_TOKEN = 'SHOW_SEND_TOKEN';
 export const SHOW_RECEIVE_TOKEN = 'SHOW_RECEIVE_TOKEN';
-export const SHOW_WALLET_KEYS = 'SHOW_WALLET_KEYS';
+export const SHOW_BACKUP_KEYSTORE = 'SHOW_BACKUP_KEYSTORE';
 export const SHOW_WALLET_BACKUP = 'SHOW_WALLET_BACKUP';
 export const SHOW_WALLET_RESET = 'SHOW_WALLET_RESET';
 
@@ -82,17 +82,17 @@ export const hideReceiveToken = () => ({
   },
 });
 
-export const showWalletKeys = () => ({
-  type: SHOW_WALLET_KEYS,
+export const showBackupKeystore = () => ({
+  type: SHOW_BACKUP_KEYSTORE,
   payload: {
-    walletKeysOpen: true,
+    backupKeystoreOpen: true,
   },
 });
 
-export const hideWalletKeys = () => ({
-  type: SHOW_WALLET_KEYS,
+export const hideBackupKeystore = () => ({
+  type: SHOW_BACKUP_KEYSTORE,
   payload: {
-    walletKeysOpen: false,
+    backupKeystoreOpen: false,
   },
 });
 
