@@ -18,7 +18,6 @@ import Toolbar from '@material-ui/core/Toolbar/Toolbar';
 import IconButton from '@material-ui/core/IconButton/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Transition from './Transition';
-import { isPrivateKeyValid } from '../utils/crypto';
 import { backgroundPage } from '../utils/backgroundPage';
 import { localStorage } from '../utils/localStorage';
 import { showSnackbar } from '../actions/snackbar';
@@ -58,8 +57,28 @@ class ImportKeystore extends Component {
     return password && schema.validate(password);
   };
 
+  parseFile = async(file) => {
+  // Always return a Promise
+  return new Promise((resolve, reject) => {
+    let content = '';
+    const reader = new FileReader();
+    // Wait till complete
+    reader.onloadend = function(e) {
+      content = e.target.result;
+      const result = content.split(/\r\n|\n/);
+      resolve(result);
+    };
+    // Make sure to handle error states
+    reader.onerror = function(e) {
+      reject(e);
+    };
+    reader.readAsText(file);
+
+   }
+   );
+  };
+
   importKeystore = async event => {
-    console.log(event.target.files[0]);
     debugger;
     const {
       setAccountInfo,
@@ -67,56 +86,72 @@ class ImportKeystore extends Component {
       showSnackbar,
       setScreen,
     } = this.props;
-    const account = Account.fromFile(
-      event.target.files[0],
-      this.state.password
-    ); // Throw error
-    const privateKey = account.privateKey;
 
-    if (!verifyPrivateKey(privateKey)) {
-      showSnackbar('Invalid keystore file! Please try again.');
+
+      let jsonData = await this.parseFile(event.target.files[0]);
+      
+      let keystore = jsonData[0];
+    
+      await Account.fromFile(
+        keystore,
+        this.state.password
+      ).then(async function(account){
+
+        const privateKey = account.privateKey;
+
+        if (!verifyPrivateKey(privateKey)) {
+          showSnackbar('Invalid keystore file! Please try again.');
+          return;
+        }
+
+        const address = getAddressFromPrivateKey(privateKey).toUpperCase();
+        const passwordHashInBackground = await backgroundPage.getPasswordHash();
+        const accounts = await localStorage.getAccounts();
+        const encryptedPrivateKey = AES.encrypt(
+          privateKey,
+          passwordHashInBackground
+        ).toString();
+
+        const accountExisted =
+          accounts.filter(account => account.address === address).length > 0;
+        if (accountExisted) {
+          showSnackbar('Account already exists! Please import another one.');
+          return;
+        }
+
+        const activeAccount = {
+          address,
+          encryptedPrivateKey,
+        };
+
+        accounts.push(activeAccount);
+        await localStorage.setAccounts(accounts);
+
+        await backgroundPage.setActiveAccount(activeAccount);
+        setAccountInfo(accounts, activeAccount);
+        showSnackbar('Keystore file imported successfully!');
+        setScreen(SCREEN_WALLET);
+
+        hideImportKeystore();
+
+      }).catch(function(e){
+          showSnackbar('Fail to import keystore file');
+          return;
+      })
+
       return;
-    }
-
-    const address = getAddressFromPrivateKey(privateKey).toUpperCase();
-    const passwordHashInBackground = await backgroundPage.getPasswordHash();
-    const accounts = await localStorage.getAccounts();
-    const encryptedPrivateKey = AES.encrypt(
-      privateKey,
-      passwordHashInBackground
-    ).toString();
-
-    const accountExisted =
-      accounts.filter(account => account.address === address).length > 0;
-    if (accountExisted) {
-      showSnackbar('Account already exists! Please import another one.');
-      return;
-    }
-
-    const activeAccount = {
-      address,
-      encryptedPrivateKey,
-    };
-
-    accounts.push(activeAccount);
-    await localStorage.setAccounts(accounts);
-
-    await backgroundPage.setActiveAccount(activeAccount);
-    setAccountInfo(accounts, activeAccount);
-    showSnackbar('Keystore file imported successfully!');
-    setScreen(SCREEN_WALLET);
-
-    hideImportKeystore();
+      
+    
   };
 
   render() {
-    const { hideImportPrivateKey, open } = this.props;
+    const { hideImportKeystore, open } = this.props;
     return (
       <Dialog
         fullScreen
         aria-labelledby="switch-network-title"
         open={open}
-        onClose={hideImportPrivateKey}
+        onClose={hideImportKeystore}
         TransitionComponent={Transition}
       >
         <AppBar position="static" className="appBar">
@@ -124,7 +159,7 @@ class ImportKeystore extends Component {
             <Tooltip title="Close">
               <IconButton
                 color="inherit"
-                onClick={hideImportPrivateKey}
+                onClick={hideImportKeystore}
                 aria-label="Close"
               >
                 <CloseIcon />

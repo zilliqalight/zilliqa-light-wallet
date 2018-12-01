@@ -31,7 +31,6 @@ import { SCREEN_WALLET, setScreen } from '../actions/app';
 import { showWalletBackup } from '../actions/wallet';
 
 import Transition from './Transition';
-import passwordValidator from 'password-validator';
 
 class CreateAccount extends Component {
   handleChange = event => {
