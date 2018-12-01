@@ -8,11 +8,11 @@ Currently it uses below TESTNET details.
 
 scilla-test-api: 
 
-https://api-scilla.zilliqa.com
+https://api.zilliqa.com/
 
 scilla-test-explorer: 
 
-https://explorer-scilla.zilliqa.com
+https://explorer.zilliqa.com/home
 
 https://viewblock.io/zilliqa (Community project)
 
