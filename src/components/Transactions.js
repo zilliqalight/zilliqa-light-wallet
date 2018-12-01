@@ -9,6 +9,10 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Avatar from '@material-ui/core/Avatar';
+import orangeAvatar from '@material-ui/core/colors/deepOrange';
+import greenAvatar from '@material-ui/core/colors/green';
+import Grid from '@material-ui/core/Grid';
 
 import moment from 'moment';
 
@@ -17,6 +21,24 @@ import { getAddressAbbreviation, getTxAbbreviation } from '../utils/crypto';
 
 const EXPLORER_ADDRESS_URL = 'https://viewblock.io/zilliqa/address/';
 const EXPLORER_TX_URL = 'https://viewblock.io/zilliqa/tx/';
+const styles = {
+  orangeAvatar: {
+    margin: 10,
+    color: '#fff',
+    fontSize:8,
+    width: 25,
+    height: 25,
+    backgroundColor: orangeAvatar[500],
+  },
+  greenAvatar: {
+    margin: 10,
+    color: '#fff',
+    fontSize:8,
+    width: 25,
+    height: 25,
+    backgroundColor: greenAvatar[500],
+  },
+};
 
 class Transactions extends React.Component {
   constructor(props) {
@@ -39,12 +61,20 @@ class Transactions extends React.Component {
     window.open(`${EXPLORER_ADDRESS_URL}${activeAccount.address}`, '_blank');
   };
 
-  renderColor(from, to) {
+  renderAvatarColor(from, to) {
     const { activeAccount } = this.props;
     if (activeAccount.address === to.toUpperCase()) {
-      return 'green';
+      return styles.greenAvatar;
     }
-    return 'red';
+    return styles.orangeAvatar;
+  }
+
+  renderAvatar(from, to) {
+    const { activeAccount } = this.props;
+    if (activeAccount.address === to.toUpperCase()) {
+      return "IN";
+    }
+    return "OUT";
   }
 
   renderFromOrTo(from, to) {
@@ -80,7 +110,8 @@ class Transactions extends React.Component {
             {transactions.map(transaction => {
               const amount = transaction.value;
               const txURL = `${EXPLORER_TX_URL}${transaction.hash}`;
-              const color = this.renderColor(transaction.from, transaction.to);
+              const avatar = this.renderAvatar(transaction.from, transaction.to);
+              const avatarColor = this.renderAvatarColor(transaction.from, transaction.to);
               return (
                 <TableRow key={transaction.hash}>
                   <TableCell
@@ -88,8 +119,8 @@ class Transactions extends React.Component {
                     component="th"
                     scope="row"
                   >
-                    {moment(transaction.timestamp).format('MMM Do, h:mm:ss a')}
-                    <br />
+                    <Grid container justify="left" alignItems="center">
+                    <Avatar style={avatarColor}>{avatar}</Avatar> {moment(transaction.timestamp).format('MMM Do, h:mm:ss a')}
                     <br />
                     <a
                       href={txURL}
@@ -99,9 +130,10 @@ class Transactions extends React.Component {
                     >
                       {getTxAbbreviation(transaction.hash)}
                     </a>
+                    </Grid>
                   </TableCell>
                   <TableCell className="transactions-addresses">
-                    <span className={color}>
+                    <span>
                       {' '}
                       {this.renderFromOrTo(
                         transaction.from,

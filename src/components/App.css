@@ -1,8 +1,7 @@
 .App {
   text-align: center;
   min-width: 480px;
-  min-height: 600px;
-  max-height: 800px;
+  height: 600px;
   flex-grow: 1;
   background-color: #fafafa;
   font-family: Poppins, sans-serif;
