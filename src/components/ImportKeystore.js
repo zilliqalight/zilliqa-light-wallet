@@ -1,60 +1,80 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import Card from '@material-ui/core/Card/Card';
 import Tooltip from '@material-ui/core/Tooltip/Tooltip';
 import Typography from '@material-ui/core/Typography/Typography';
 import Button from '@material-ui/core/Button/Button';
+import CreateNewFolder from '@material-ui/icons/CreateNewFolder';
+
+import AES from 'crypto-js/aes';
+
+import { Account } from '@zilliqa-js/account';
+import { verifyPrivateKey, getAddressFromPrivateKey } from '@zilliqa-js/crypto';
+
+import { hideImportKeystore, importKeystore } from '../actions/wallet';
 import Dialog from '@material-ui/core/Dialog/Dialog';
 import AppBar from '@material-ui/core/AppBar/AppBar';
 import Toolbar from '@material-ui/core/Toolbar/Toolbar';
 import IconButton from '@material-ui/core/IconButton/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import PermIdentity from '@material-ui/icons/PermIdentity';
-
-import AES from 'crypto-js/aes';
-
-import {
-  generatePrivateKey,
-  verifyPrivateKey,
-  getAddressFromPrivateKey,
-} from '@zilliqa-js/crypto';
-
-import { generateMnemonicFromString } from '../utils/crypto';
-import { localStorage } from '../utils/localStorage';
+import Transition from './Transition';
+import { isPrivateKeyValid } from '../utils/crypto';
 import { backgroundPage } from '../utils/backgroundPage';
-
-import { hideCreateAccount } from '../actions/wallet';
+import { localStorage } from '../utils/localStorage';
 import { showSnackbar } from '../actions/snackbar';
 import { setAccountInfo } from '../actions/account';
 import { SCREEN_WALLET, setScreen } from '../actions/app';
-import { showWalletBackup } from '../actions/wallet';
-
-import Transition from './Transition';
+import TextField from '@material-ui/core/TextField/TextField';
 import passwordValidator from 'password-validator';
 
-class CreateAccount extends Component {
+class ImportKeystore extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      password: '',
+    };
+  }
+
+  disableSubmit = () => {
+    return !this.isAppPasswordValid(this.state.password);
+  };
+
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  handleSubmit = event => {
-    event.preventDefault();
-    this.createAccount();
+  isAppPasswordValid = () => {
+    const { password } = this.state;
+    const schema = new passwordValidator();
+    schema
+      .is()
+      .min(6) // Minimum length 6
+      .is()
+      .max(20) // Maximum length 20
+      .has()
+      .not()
+      .spaces(); // Should not have spaces
+
+    return password && schema.validate(password);
   };
 
-  createAccount = async () => {
+  importKeystore = async event => {
+    console.log(event.target.files[0]);
+    debugger;
     const {
       setAccountInfo,
-      hideCreateAccount,
+      hideImportKeystore,
       showSnackbar,
       setScreen,
-      showWalletBackup,
     } = this.props;
+    const account = Account.fromFile(
+      event.target.files[0],
+      this.state.password
+    ); // Throw error
+    const privateKey = account.privateKey;
 
-    const privateKey = generatePrivateKey().toUpperCase();
     if (!verifyPrivateKey(privateKey)) {
-      showSnackbar('Invalid private key! Please try again.');
+      showSnackbar('Invalid keystore file! Please try again.');
       return;
     }
 
@@ -83,23 +103,20 @@ class CreateAccount extends Component {
 
     await backgroundPage.setActiveAccount(activeAccount);
     setAccountInfo(accounts, activeAccount);
-    showSnackbar('Account is created successfully!');
-
-    let mnemonic = generateMnemonicFromString(privateKey);
-    showWalletBackup(mnemonic);
+    showSnackbar('Keystore file imported successfully!');
     setScreen(SCREEN_WALLET);
 
-    hideCreateAccount();
+    hideImportKeystore();
   };
 
   render() {
-    const { hideCreateAccount, open } = this.props;
+    const { hideImportPrivateKey, open } = this.props;
     return (
       <Dialog
         fullScreen
         aria-labelledby="switch-network-title"
         open={open}
-        onClose={hideCreateAccount}
+        onClose={hideImportPrivateKey}
         TransitionComponent={Transition}
       >
         <AppBar position="static" className="appBar">
@@ -107,32 +124,53 @@ class CreateAccount extends Component {
             <Tooltip title="Close">
               <IconButton
                 color="inherit"
-                onClick={hideCreateAccount}
+                onClick={hideImportPrivateKey}
                 aria-label="Close"
               >
                 <CloseIcon />
               </IconButton>
             </Tooltip>
             <Typography variant="h6" color="inherit">
-              Create Account
+              Import Keystore file
             </Typography>
           </Toolbar>
         </AppBar>
         <div className="cards">
           <Card className="card sign-in-card">
-            <Typography variant="h6">Create New Account on Zilliqa</Typography>
+            <Typography variant="h6">Upload Keystore file</Typography>
             <p className="token-power-description">
-              Private key is encrypted and only stored in local Chrome storage
+              The imported key will be encrypted and only stored in local Chrome
+              storage
             </p>
-
-            <Button
-              className="sign-in-button button"
-              color="secondary"
-              variant="contained"
-              onClick={this.handleSubmit}
-            >
-              Create <PermIdentity className="account-details-button-icon" />
-            </Button>
+            <TextField
+              label="Password"
+              className="private-key-field"
+              type="password"
+              autoComplete="off"
+              name="password"
+              value={this.state.password}
+              onChange={this.handleChange}
+              helperText="Your passphrase (6-20 characters)"
+              margin="normal"
+            />
+            <input
+              accept="text/plain"
+              id="keystore-file"
+              multiple
+              type="file"
+              onInput={this.importKeystore}
+            />
+            <label id="import-keystore" htmlFor="keystore-file">
+              <Button
+                color="secondary"
+                variant="contained"
+                component="span"
+                className="import-keystore-button button"
+              >
+                Import keystore file{' '}
+                <CreateNewFolder className="account-details-button-icon" />
+              </Button>
+            </label>
             <div className="space" />
           </Card>
         </div>
@@ -142,18 +180,18 @@ class CreateAccount extends Component {
 }
 
 const mapStateToProps = state => ({
-  open: state.wallet.createAccountOpen,
+  open: state.wallet.importKeystoreOpen,
 });
 
 const mapDispatchToProps = {
-  hideCreateAccount,
+  hideImportKeystore,
+  importKeystore,
   setAccountInfo,
   showSnackbar,
   setScreen,
-  showWalletBackup,
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CreateAccount);
+)(ImportKeystore);

@@ -5,6 +5,7 @@ import { SHOW_NETWORK } from '../actions/appBar';
 const initialState = {
   importPrivateKeyOpen: false,
   importMnemonicOpen: false,
+  importKeystoreOpen: false,
   createAccountOpen: false,
   networkOpen: false,
 };

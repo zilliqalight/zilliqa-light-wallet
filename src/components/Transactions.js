@@ -25,7 +25,7 @@ const styles = {
   orangeAvatar: {
     margin: 10,
     color: '#fff',
-    fontSize:8,
+    fontSize: 8,
     width: 25,
     height: 25,
     backgroundColor: orangeAvatar[500],
@@ -33,7 +33,7 @@ const styles = {
   greenAvatar: {
     margin: 10,
     color: '#fff',
-    fontSize:8,
+    fontSize: 8,
     width: 25,
     height: 25,
     backgroundColor: greenAvatar[500],
@@ -72,9 +72,9 @@ class Transactions extends React.Component {
   renderAvatar(from, to) {
     const { activeAccount } = this.props;
     if (activeAccount.address === to.toUpperCase()) {
-      return "IN";
+      return 'IN';
     }
-    return "OUT";
+    return 'OUT';
   }
 
   renderFromOrTo(from, to) {
@@ -110,8 +110,14 @@ class Transactions extends React.Component {
             {transactions.map(transaction => {
               const amount = transaction.value;
               const txURL = `${EXPLORER_TX_URL}${transaction.hash}`;
-              const avatar = this.renderAvatar(transaction.from, transaction.to);
-              const avatarColor = this.renderAvatarColor(transaction.from, transaction.to);
+              const avatar = this.renderAvatar(
+                transaction.from,
+                transaction.to
+              );
+              const avatarColor = this.renderAvatarColor(
+                transaction.from,
+                transaction.to
+              );
               return (
                 <TableRow key={transaction.hash}>
                   <TableCell
@@ -120,16 +126,19 @@ class Transactions extends React.Component {
                     scope="row"
                   >
                     <Grid container justify="left" alignItems="center">
-                    <Avatar style={avatarColor}>{avatar}</Avatar> {moment(transaction.timestamp).format('MMM Do, h:mm:ss a')}
-                    <br />
-                    <a
-                      href={txURL}
-                      className="tx-link"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {getTxAbbreviation(transaction.hash)}
-                    </a>
+                      <Avatar style={avatarColor}>{avatar}</Avatar>{' '}
+                      {moment(transaction.timestamp).format(
+                        'MMM Do, h:mm:ss a'
+                      )}
+                      <br />
+                      <a
+                        href={txURL}
+                        className="tx-link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {getTxAbbreviation(transaction.hash)}
+                      </a>
                     </Grid>
                   </TableCell>
                   <TableCell className="transactions-addresses">

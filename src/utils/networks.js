@@ -7,7 +7,7 @@ const DEFAULT_NETWORK = TESTNET;
 const isMainnet = network => network === MAINNET;
 const isTestnet = network => network === TESTNET;
 
-const TESTNET_NODE_URL = 'https://api.zilliqa.com/';// https://api-scilla.zilliqa.com/
+const TESTNET_NODE_URL = 'https://api.zilliqa.com/'; // https://api-scilla.zilliqa.com/
 const getNodeUrl = network => {
   if (isMainnet(network)) {
     return 'https://mainnet.is.not.support.yet';

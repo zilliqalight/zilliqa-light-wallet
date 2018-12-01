@@ -8,20 +8,24 @@ import Button from '@material-ui/core/Button/Button';
 import VpnKey from '@material-ui/icons/VpnKey';
 import SpeakerNotes from '@material-ui/icons/SpeakerNotes';
 import PermIdentity from '@material-ui/icons/PermIdentity';
+import CreateNewFolder from '@material-ui/icons/CreateNewFolder';
 
 import logo from '../images/logo.png';
 import {
   showCreateAccount,
+  showImportKeystore,
   showImportMnemonic,
   showImportPrivateKey,
 } from '../actions/wallet';
 import ImportPrivateKey from './ImportPrivateKey';
 import ImportMnemonic from './ImportMnemonic';
 import CreateAccount from './CreateAccount';
+import ImportKeystore from './ImportKeystore';
 
 const ImportOrCreateAccount = ({
   showImportPrivateKey,
   showImportMnemonic,
+  showImportKeystore,
   showCreateAccount,
 }) => (
   <div>
@@ -58,6 +62,18 @@ const ImportOrCreateAccount = ({
             </Button>
             <div className="space" />
           </Grid>
+          <Grid item xs={12}>
+            <Button
+              className="sign-in-button button"
+              color="secondary"
+              variant="contained"
+              onClick={showImportKeystore}
+            >
+              Keystore file{' '}
+              <CreateNewFolder className="account-details-button-icon" />
+            </Button>
+            <div className="space" />
+          </Grid>
         </Grid>
       </Card>
       <Card className="card sign-in-card">
@@ -78,6 +94,7 @@ const ImportOrCreateAccount = ({
     </div>
     <ImportPrivateKey />
     <ImportMnemonic />
+    <ImportKeystore />
     <CreateAccount />
   </div>
 );
@@ -85,6 +102,7 @@ const ImportOrCreateAccount = ({
 const mapDispatchToProps = {
   showImportPrivateKey,
   showImportMnemonic,
+  showImportKeystore,
   showCreateAccount,
 };
 
