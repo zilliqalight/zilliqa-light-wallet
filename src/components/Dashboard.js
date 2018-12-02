@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
 import LinearProgress from '@material-ui/core/LinearProgress/LinearProgress';
 import Card from '@material-ui/core/Card/Card';
 import Tooltip from '@material-ui/core/Tooltip/Tooltip';
@@ -26,6 +25,7 @@ import { setActiveAccountDetails } from '../actions/account';
 import logoZIL from '../images/logo_zil.svg';
 
 class Dashboard extends React.Component {
+  
   componentDidMount() {
     this.loadActiveAccountDetails(true);
   }
@@ -138,6 +138,8 @@ class Dashboard extends React.Component {
         <BackupKeystore />
         <ChangeNetwork />
         <WalletBackup />
+
+        
       </div>
     );
   }

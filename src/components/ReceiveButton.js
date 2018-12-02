@@ -7,7 +7,7 @@ import connect from 'react-redux/es/connect/connect';
 import { showReceiveToken } from '../actions/wallet';
 
 const ReceiveButton = ({ showReceiveToken }) => (
-  <Button variant="contained" color="secondary" onClick={showReceiveToken}>
+  <Button  size="small" variant="contained" color="secondary" onClick={showReceiveToken}>
     Receive <AttachMoney className="receive-button-icon" />
   </Button>
 );

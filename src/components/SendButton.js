@@ -7,7 +7,7 @@ import Send from '@material-ui/icons/Send';
 import { showSendToken } from '../actions/wallet';
 
 const SendButton = ({ showSendToken }) => (
-  <Button variant="contained" color="secondary" onClick={showSendToken}>
+  <Button size="small" variant="contained" color="secondary" onClick={showSendToken}>
     Send <Send className="send-button-icon" />
   </Button>
 );
