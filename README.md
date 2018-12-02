@@ -5,7 +5,7 @@
 ## Install from google store
 POST THE LINK HERE
 
-## how to install the wallet locally
+## Install the wallet from source code
 
 Prerequisite: yarn, git, node
 
