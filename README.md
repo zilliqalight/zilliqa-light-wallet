@@ -1,6 +1,6 @@
 # Zilliqa Light Wallet
 
-![Zilliqa Light Wallet](https://github.com/zilliqalight/zilliqa-light-wallet/blob/master/assets/dashboard.png?v=1 "Zilliqa Light Wallet")
+![Zilliqa Light Wallet](https://github.com/zilliqalight/zilliqa-light-wallet/blob/master/assets/wallet.png?v=1 "Zilliqa Light Wallet")
 
 
 ## Introduction
