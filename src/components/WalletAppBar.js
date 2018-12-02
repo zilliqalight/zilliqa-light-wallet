@@ -7,6 +7,7 @@ import Tooltip from '@material-ui/core/Tooltip/Tooltip';
 import IconButton from '@material-ui/core/IconButton/IconButton';
 import Wifi from '@material-ui/icons/Wifi';
 import Launch from '@material-ui/icons/Launch';
+import Dashboard from '@material-ui/icons/Dashboard';
 import AppBar from '@material-ui/core/AppBar/AppBar';
 
 import { backgroundPage } from '../utils/backgroundPage';
@@ -14,6 +15,7 @@ import { backgroundPage } from '../utils/backgroundPage';
 import { showNetwork } from '../actions/appBar';
 import {
   SCREEN_UNLOCK_WALLET,
+  SCREEN_WALLET,
   setPasswordHash,
   setScreen,
 } from '../actions/app';
@@ -24,6 +26,10 @@ class WalletAppBar extends Component {
     backgroundPage.setPasswordHash(null);
     setPasswordHash(null, passwordHashInStorage);
     setScreen(SCREEN_UNLOCK_WALLET);
+  };
+
+  showDashboard = () => {
+    setScreen(SCREEN_WALLET);
   };
 
   render() {
@@ -42,6 +48,18 @@ class WalletAppBar extends Component {
               <h3>Zilliqa Light Wallet</h3>
             </div>
             <div>
+             {passwordHashInBackground && (
+                <Tooltip title="Dashboard">
+                  <IconButton
+                    color="inherit"
+                    onClick={this.showDashboard}
+                    aria-label="Show Dashboard"
+                  >
+                    <Dashboard className="account-details-button-icon" />
+                  </IconButton>
+                </Tooltip>
+              )}
+
               {network &&
                 activeAccount &&
                 passwordHashInBackground && (

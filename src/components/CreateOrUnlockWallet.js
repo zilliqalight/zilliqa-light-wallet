@@ -9,7 +9,7 @@ import AccountBalanceWallet from '@material-ui/icons/AccountBalanceWallet';
 import logoZIL from '../images/logo_zil.svg';
 import TextField from '@material-ui/core/TextField/TextField';
 
-import passwordValidator from 'password-validator';
+import { isAppPasswordValid } from '../utils/crypto';
 import SHA256 from 'crypto-js/sha256';
 import SHA512 from 'crypto-js/sha512';
 
@@ -44,7 +44,7 @@ class CreateOrUnlockWallet extends Component {
   }
 
   disableSubmit() {
-    return !this.isAppPasswordValid(this.state.password);
+    return !isAppPasswordValid(this.state.password);
   }
 
   handleSubmit(event) {
@@ -56,21 +56,6 @@ class CreateOrUnlockWallet extends Component {
       this.createPasswordHash();
     }
   }
-
-  isAppPasswordValid = () => {
-    const { password } = this.state;
-    const schema = new passwordValidator();
-    schema
-      .is()
-      .min(6) // Minimum length 6
-      .is()
-      .max(20) // Maximum length 20
-      .has()
-      .not()
-      .spaces(); // Should not have spaces
-
-    return password && schema.validate(password);
-  };
 
   createPasswordHash = async () => {
     const { password } = this.state;
@@ -155,7 +140,7 @@ class CreateOrUnlockWallet extends Component {
             className="sign-in-button button"
             color="secondary"
             variant="contained"
-            disabled={!this.isAppPasswordValid()}
+            disabled={this.disableSubmit()}
             onClick={this.handleSubmit}
           >
             {walletLabel}{' '}

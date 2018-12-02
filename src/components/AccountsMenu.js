@@ -11,7 +11,7 @@ import { createZilliqa } from '../utils/networks';
 import { hideAccounts, showAccounts } from '../actions/dashboard';
 import { hideSnackbar, showSnackbar } from '../actions/snackbar';
 import { setActiveAccountDetails, setAccountInfo } from '../actions/account';
-import { SCREEN_IMPORT_OR_CREATE_ACCOUNT, SCREEN_WALLET,setScreen } from '../actions/app';
+import { SCREEN_IMPORT_OR_CREATE_ACCOUNT,setScreen } from '../actions/app';
 
 class AccountsMenu extends Component {
   loadAccounts = async () => {

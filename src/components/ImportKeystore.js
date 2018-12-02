@@ -24,7 +24,8 @@ import { showSnackbar } from '../actions/snackbar';
 import { setAccountInfo } from '../actions/account';
 import { SCREEN_WALLET, setScreen } from '../actions/app';
 import TextField from '@material-ui/core/TextField/TextField';
-import passwordValidator from 'password-validator';
+
+import { isAppPasswordValid } from '../utils/crypto';
 
 class ImportKeystore extends Component {
   constructor(props) {
@@ -32,29 +33,16 @@ class ImportKeystore extends Component {
     this.state = {
       password: '',
     };
+    this.disableSubmit = this.disableSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   disableSubmit = () => {
-    return !this.isAppPasswordValid(this.state.password);
+    return !isAppPasswordValid(this.state.password);
   };
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
-  };
-
-  isAppPasswordValid = () => {
-    const { password } = this.state;
-    const schema = new passwordValidator();
-    schema
-      .is()
-      .min(6) // Minimum length 6
-      .is()
-      .max(20) // Maximum length 20
-      .has()
-      .not()
-      .spaces(); // Should not have spaces
-
-    return password && schema.validate(password);
   };
 
   parseFile = async(file) => {
@@ -193,6 +181,7 @@ class ImportKeystore extends Component {
               id="keystore-file"
               multiple
               type="file"
+              disabled={this.disableSubmit()}
               onInput={this.importKeystore}
             />
             <label id="import-keystore" htmlFor="keystore-file">
@@ -200,6 +189,7 @@ class ImportKeystore extends Component {
                 color="secondary"
                 variant="contained"
                 component="span"
+                disabled={this.disableSubmit()}
                 className="import-keystore-button button"
               >
                 Import keystore file{' '}

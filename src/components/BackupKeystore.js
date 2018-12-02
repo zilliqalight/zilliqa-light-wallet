@@ -12,11 +12,9 @@ import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-import passwordValidator from 'password-validator';
-
 import { Account } from '@zilliqa-js/account';
 
-import { getActivePrivateKey } from '../utils/crypto';
+import { getActivePrivateKey, isAppPasswordValid } from '../utils/crypto';
 
 import Transition from './Transition';
 
@@ -53,28 +51,13 @@ class BackupKeystore extends React.Component {
   }
 
   disableSubmit() {
-    return !this.isAppPasswordValid(this.state.password);
+    return ! isAppPasswordValid(this.state.password);
   }
 
   handleSubmit(event) {
     event.preventDefault();
     this.downloadData(this.state.password);
   }
-
-  isAppPasswordValid = () => {
-    const { password } = this.state;
-    const schema = new passwordValidator();
-    schema
-      .is()
-      .min(6) // Minimum length 6
-      .is()
-      .max(20) // Maximum length 20
-      .has()
-      .not()
-      .spaces(); // Should not have spaces
-
-    return password && schema.validate(password);
-  };
 
   downloadData = async pwd => {
     const { hideBackupKeystore, showSnackbar } = this.props;
@@ -140,7 +123,7 @@ class BackupKeystore extends React.Component {
               className="button"
               color="secondary"
               variant="contained"
-              disabled={!this.isAppPasswordValid()}
+              disabled={this.disableSubmit()}
               onClick={this.handleSubmit}
             >
               Download keystore file

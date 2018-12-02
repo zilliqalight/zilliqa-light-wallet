@@ -1,6 +1,7 @@
 import bip39 from 'bip39';
 import AES from 'crypto-js/aes';
 import CryptoJS from 'crypto-js';
+import passwordValidator from 'password-validator';
 
 import { backgroundPage } from './backgroundPage';
 
@@ -23,6 +24,20 @@ export const getAddressAbbreviation = address => {
     return '';
   }
 };
+
+export const isAppPasswordValid = password => {
+    const schema = new passwordValidator();
+    schema
+      .is()
+      .min(6) // Minimum length 6
+      .is()
+      .max(20) // Maximum length 20
+      .has()
+      .not()
+      .spaces(); // Should not have spaces
+
+    return password && schema.validate(password);
+  };
 
 export const isPrivateKeyValid = privateKey => {
   return privateKey && privateKey.length > 0;
