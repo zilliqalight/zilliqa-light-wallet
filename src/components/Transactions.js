@@ -20,6 +20,7 @@ import { getAddressAbbreviation, getTxAbbreviation } from '../utils/crypto';
 
 const EXPLORER_ADDRESS_URL = 'https://viewblock.io/zilliqa/address/';
 const EXPLORER_TX_URL = 'https://viewblock.io/zilliqa/tx/';
+
 const styles = {
   orangeAvatar: {
     margin: 10,
