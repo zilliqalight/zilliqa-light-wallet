@@ -64,7 +64,7 @@ class Transactions extends React.Component {
 
   goToExplorerAddress = () => {
     const { activeAccount } = this.props;
-    window.open(`${EXPLORER_ADDRESS_URL}${activeAccount.address}`, '_blank');
+    window.open(`${EXPLORER_ADDRESS_URL}${activeAccount.address}?network=testnetv3`, '_blank');
   };
 
   renderAvatarColor(from, to) {
@@ -116,7 +116,7 @@ class Transactions extends React.Component {
           <TableBody>
             {transactions.map(transaction => {
               const amount = transaction.value;
-              const txURL = `${EXPLORER_TX_URL}${transaction.hash}`;
+              const txURL = `${EXPLORER_TX_URL}${transaction.hash}?network=testnetv3`;
               const avatar = this.renderAvatar(
                 transaction.from,
                 transaction.to
