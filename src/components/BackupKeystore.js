@@ -125,7 +125,7 @@ class BackupKeystore extends React.Component {
         <div>
           <Card className="card backup-keystore-card">
             <TextField
-              label="Password"
+              label="Passphrase"
               className="private-key-field"
               type="password"
               autoComplete="off"

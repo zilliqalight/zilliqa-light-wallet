@@ -1,29 +1,13 @@
 # Zilliqa Light Wallet
 
-
 ![Zilliqa Light Wallet](https://github.com/zilliqalight/zilliqa-light-wallet/blob/master/assets/dashboard.png?v=1 "Zilliqa Light Wallet")
-
-
-Currently it uses below TESTNET details.
-
-scilla-test-api: 
-
-https://api.zilliqa.com/
-
-scilla-test-explorer: 
-
-https://explorer.zilliqa.com/home
-
-https://viewblock.io/zilliqa (Community project)
-
-
-iqznc-scilla-wallet: 
-
 
 
 ## Introduction
 
-This project is currently in development and it is under [Zilliqa ecosystem grant programme](https://blog.zilliqa.com/buildonzil-introducing-the-zilliqa-ecosystem-grant-programme-6ccb98892712). Current it supports below features on [Zilliqa Testnet](https://explorer.zilliqa.com/). To apply Testnet token, please go to [Zilliqa Gitter Channel](https://gitter.im/Zilliqa/General) to apply
+This project is currently in development and it is under [Zilliqa ecosystem grant programme](https://blog.zilliqa.com/buildonzil-introducing-the-zilliqa-ecosystem-grant-programme-6ccb98892712).
+
+Currently it supports below features on [Zilliqa Testnet v3.0](https://explorer.zilliqa.com/). To apply Testnet token, please go to [Zilliqa Gitter Channel](https://gitter.im/Zilliqa/General) to apply. We are currently using [viewblock](https://viewblock.io/zilliqa) for transactions
 
 | Feature        | Status           |
 | ------------- |:-------------:|
@@ -33,10 +17,13 @@ This project is currently in development and it is under [Zilliqa ecosystem gran
 | Sign out | done      |
 | Import account by private key | done      |
 | Import account by mnemonic | done      |
+| Import account by keystore | done      |
 | Multiple account switching | done      |
 | Display account balance | done      |
+| Export keystore | done      |
 | Send fund | done      |
 | Receive fund address/QRcode | done      |
+| Recent transactions history | done      |
 
 Mainnet support will be available once it is released.
 

@@ -51,6 +51,13 @@ class Transactions extends React.Component {
     this.loadTransactions(activeAccount.address);
   }
 
+   componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.activeAccount !== prevProps.activeAccount) {
+      this.loadTransactions(this.props.activeAccount.address);
+    }
+  }
+
   loadTransactions = async address => {
     const transactions = await loadTransactions(address);
     this.setState({ transactions });

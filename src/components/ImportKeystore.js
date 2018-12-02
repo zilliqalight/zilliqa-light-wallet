@@ -175,10 +175,10 @@ class ImportKeystore extends Component {
             <Typography variant="h6">Upload Keystore file</Typography>
             <p className="token-power-description">
               The imported key will be encrypted and only stored in local Chrome
-              storage
+              storage, note this is the passphrase used when export the keystore file, not the password for the wallet
             </p>
             <TextField
-              label="Password"
+              label="Passphrase"
               className="private-key-field"
               type="password"
               autoComplete="off"
