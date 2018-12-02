@@ -33,8 +33,6 @@ class ImportKeystore extends Component {
     this.state = {
       password: '',
     };
-    this.disableSubmit = this.disableSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
   }
 
   disableSubmit = () => {
