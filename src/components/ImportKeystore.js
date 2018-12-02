@@ -45,29 +45,25 @@ class ImportKeystore extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  parseFile = async(file) => {
-  // Always return a Promise
-  return new Promise((resolve, reject) => {
-    let content = '';
-    const reader = new FileReader();
-    // Wait till complete
-    reader.onloadend = function(e) {
-      content = e.target.result;
-      const result = content.split(/\r\n|\n/);
-      resolve(result);
-    };
-    // Make sure to handle error states
-    reader.onerror = function(e) {
-      reject(e);
-    };
-    reader.readAsText(file);
-
-   }
-   );
+  parseFile = async file => {
+    // Always return a Promise
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      // Wait till complete
+      reader.onloadend = function(e) {
+        const content = e.target.result;
+        const result = content.split(/\r\n|\n/);
+        resolve(result);
+      };
+      // Make sure to handle error states
+      reader.onerror = function(e) {
+        reject(e);
+      };
+      reader.readAsText(file);
+    });
   };
 
   importKeystore = async event => {
-    debugger;
     const {
       setAccountInfo,
       hideImportKeystore,
@@ -75,16 +71,10 @@ class ImportKeystore extends Component {
       setScreen,
     } = this.props;
 
-
-      let jsonData = await this.parseFile(event.target.files[0]);
-      
-      let keystore = jsonData[0];
-    
-      await Account.fromFile(
-        keystore,
-        this.state.password
-      ).then(async function(account){
-
+    const jsonData = await this.parseFile(event.target.files[0]);
+    const keystore = jsonData[0];
+    await Account.fromFile(keystore, this.state.password)
+      .then(async function(account) {
         const privateKey = account.privateKey;
 
         if (!verifyPrivateKey(privateKey)) {
@@ -121,15 +111,13 @@ class ImportKeystore extends Component {
         setScreen(SCREEN_WALLET);
 
         hideImportKeystore();
-
-      }).catch(function(e){
-          showSnackbar('Fail to import keystore file');
-          return;
       })
+      .catch(function(e) {
+        showSnackbar('Fail to import keystore file');
+        return;
+      });
 
-      return;
-      
-    
+    return;
   };
 
   render() {
@@ -163,7 +151,8 @@ class ImportKeystore extends Component {
             <Typography variant="h6">Upload Keystore file</Typography>
             <p className="token-power-description">
               The imported key will be encrypted and only stored in local Chrome
-              storage, note this is the passphrase used when export the keystore file, not the password for the wallet
+              storage, note this is the passphrase used when export the keystore
+              file, not the password for the wallet
             </p>
             <TextField
               label="Passphrase"

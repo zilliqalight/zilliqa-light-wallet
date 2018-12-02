@@ -25,7 +25,6 @@ import { setActiveAccountDetails } from '../actions/account';
 import logoZIL from '../images/logo_zil.svg';
 
 class Dashboard extends React.Component {
-  
   componentDidMount() {
     this.loadActiveAccountDetails(true);
   }
@@ -138,8 +137,6 @@ class Dashboard extends React.Component {
         <BackupKeystore />
         <ChangeNetwork />
         <WalletBackup />
-
-        
       </div>
     );
   }

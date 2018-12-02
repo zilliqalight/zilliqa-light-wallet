@@ -48,7 +48,7 @@ class WalletAppBar extends Component {
               <h3>Zilliqa Light Wallet</h3>
             </div>
             <div>
-             {passwordHashInBackground && (
+              {passwordHashInBackground && (
                 <Tooltip title="Dashboard">
                   <IconButton
                     color="inherit"

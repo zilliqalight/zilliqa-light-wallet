@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-
 import Grid from '@material-ui/core/Grid/Grid';
 
 import Dashboard from './Dashboard';
@@ -21,7 +20,7 @@ class Wallet extends Component {
             <Grid item xs={6}>
               <SendButton />
             </Grid>
-            <Grid item xs={6}>            
+            <Grid item xs={6}>
               <ReceiveButton />
             </Grid>
           </Grid>

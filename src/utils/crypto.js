@@ -26,18 +26,18 @@ export const getAddressAbbreviation = address => {
 };
 
 export const isAppPasswordValid = password => {
-    const schema = new passwordValidator();
-    schema
-      .is()
-      .min(6) // Minimum length 6
-      .is()
-      .max(20) // Maximum length 20
-      .has()
-      .not()
-      .spaces(); // Should not have spaces
+  const schema = new passwordValidator();
+  schema
+    .is()
+    .min(6) // Minimum length 6
+    .is()
+    .max(20) // Maximum length 20
+    .has()
+    .not()
+    .spaces(); // Should not have spaces
 
-    return password && schema.validate(password);
-  };
+  return password && schema.validate(password);
+};
 
 export const isPrivateKeyValid = privateKey => {
   return privateKey && privateKey.length > 0;

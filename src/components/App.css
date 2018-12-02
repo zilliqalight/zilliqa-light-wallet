@@ -194,6 +194,7 @@
 }
 
 .transactions-table .transactions-time-hash,
+.transactions-table .transactions-in-out,
 .transactions-table .transactions-addresses,
 .transactions-table .transactions-amount,
 .transactions-table .transactions-token {

@@ -51,7 +51,7 @@ class BackupKeystore extends React.Component {
   }
 
   disableSubmit() {
-    return ! isAppPasswordValid(this.state.password);
+    return !isAppPasswordValid(this.state.password);
   }
 
   handleSubmit(event) {

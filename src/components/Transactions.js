@@ -50,7 +50,7 @@ class Transactions extends React.Component {
     this.loadTransactions(activeAccount.address);
   }
 
-   componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
     if (this.props.activeAccount !== prevProps.activeAccount) {
       this.loadTransactions(this.props.activeAccount.address);
@@ -94,87 +94,90 @@ class Transactions extends React.Component {
   renderTransactionsTable() {
     const { transactions } = this.state;
     if (!transactions || transactions.length === 0) {
-      return <div class="address">No transactions found!</div>;
+      return <div className="address">No transactions found!</div>;
     }
 
     return (
-        <div>
-          <Table className="transactions-table">
-            <TableHead>
-              <TableRow>
-                <TableCell className="transactions-time-hash">
-                  Time/Hash
-                </TableCell>
-                <TableCell className="transactions-addresses">From/To</TableCell>
-                <TableCell className="transactions-amount" numeric>
-                  Amount
-                </TableCell>
-                <TableCell className="transactions-token">Token</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {transactions.map(transaction => {
-                const amount = transaction.value;
-                const txURL = `${EXPLORER_TX_URL}${transaction.hash}`;
-                const avatar = this.renderAvatar(
-                  transaction.from,
-                  transaction.to
-                );
-                const avatarColor = this.renderAvatarColor(
-                  transaction.from,
-                  transaction.to
-                );
-                return (
-                  <TableRow key={transaction.hash}>
-                    <TableCell
-                      className="transactions-time-hash"
-                      component="th"
-                      scope="row"
-                    >
-                      <Grid container justify="left" alignItems="center">
-                        <Avatar style={avatarColor}>{avatar}</Avatar>{' '}
-                        {moment(transaction.timestamp).format(
-                          'MMM Do, h:mm:ss a'
-                        )}
-                        <br />
-                        <a
-                          href={txURL}
-                          className="tx-link"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {getTxAbbreviation(transaction.hash)}
-                        </a>
-                      </Grid>
-                    </TableCell>
-                    <TableCell className="transactions-addresses">
-                      <span>
-                        {' '}
-                        {this.renderFromOrTo(
-                          transaction.from,
-                          transaction.to
-                        )}{' '}
-                      </span>
-                    </TableCell>
-                    <TableCell className="transactions-amount" numeric>
-                      {amount}
-                    </TableCell>
-                    <TableCell className="transactions-token">ZIL</TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-          <div className="view-transactions-on-button">
-            <Button
-              size="small"
-              color="secondary"
-              onClick={this.goToExplorerAddress}
-            >
-              View all transactions
-            </Button>
-          </div>
+      <div>
+        <Table className="transactions-table">
+          <TableHead>
+            <TableRow>
+              <TableCell className="transactions-time-hash">
+                Time/Hash
+              </TableCell>
+              <TableCell className="transactions-in-out" />
+              <TableCell className="transactions-addresses">From/To</TableCell>
+              <TableCell className="transactions-amount" numeric>
+                Amount
+              </TableCell>
+              <TableCell className="transactions-token">Token</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {transactions.map(transaction => {
+              const amount = transaction.value;
+              const txURL = `${EXPLORER_TX_URL}${transaction.hash}`;
+              const avatar = this.renderAvatar(
+                transaction.from,
+                transaction.to
+              );
+              const avatarColor = this.renderAvatarColor(
+                transaction.from,
+                transaction.to
+              );
+              return (
+                <TableRow key={transaction.hash}>
+                  <TableCell
+                    className="transactions-time-hash"
+                    component="th"
+                    scope="row"
+                  >
+                    <Grid container justify="flex-start" alignItems="center">
+                      {moment(transaction.timestamp).format(
+                        'MMM Do, h:mm:ss a'
+                      )}
+                      <br />
+                      <a
+                        href={txURL}
+                        className="tx-link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {getTxAbbreviation(transaction.hash)}
+                      </a>
+                    </Grid>
+                  </TableCell>
+                  <TableCell className="transactions-in-out">
+                    <Avatar style={avatarColor}>{avatar}</Avatar>{' '}
+                  </TableCell>
+                  <TableCell className="transactions-addresses">
+                    <span>
+                      {' '}
+                      {this.renderFromOrTo(
+                        transaction.from,
+                        transaction.to
+                      )}{' '}
+                    </span>
+                  </TableCell>
+                  <TableCell className="transactions-amount" numeric>
+                    {amount}
+                  </TableCell>
+                  <TableCell className="transactions-token">ZIL</TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+        <div className="view-transactions-on-button">
+          <Button
+            size="small"
+            color="secondary"
+            onClick={this.goToExplorerAddress}
+          >
+            View all transactions
+          </Button>
         </div>
+      </div>
     );
   }
 
@@ -185,10 +188,10 @@ class Transactions extends React.Component {
     }
 
     return (
-      <div class="cards">
-      <Card className="card transactions-card">
-        {this.renderTransactionsTable()}
-      </Card>
+      <div className="cards">
+        <Card className="card transactions-card">
+          {this.renderTransactionsTable()}
+        </Card>
       </div>
     );
   }
