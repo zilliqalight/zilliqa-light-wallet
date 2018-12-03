@@ -188,6 +188,8 @@ class Transactions extends React.Component {
       return null;
     }
 
+    return null;
+
     return (
       <div className="cards">
         <Card className="card transactions-card">
