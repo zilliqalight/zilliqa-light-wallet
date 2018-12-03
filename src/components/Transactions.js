@@ -183,8 +183,7 @@ class Transactions extends React.Component {
   }
 
   render() {
-    let { transactions } = this.state;
-    transactions=null;
+    const { transactions } = this.state;
     if (!transactions) {
       return null;
     }
