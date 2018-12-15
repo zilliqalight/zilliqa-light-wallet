@@ -37,10 +37,6 @@ const  {
 } = schnorr;
 
 class CreateAccount extends Component {
-  handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
-
   handleSubmit = event => {
     event.preventDefault();
     this.createAccount();
@@ -88,7 +84,7 @@ class CreateAccount extends Component {
     setAccountInfo(accounts, activeAccount);
     showSnackbar('Account is created successfully!');
 
-    let mnemonic = generateMnemonicFromString(privateKey);
+    const mnemonic = generateMnemonicFromString(privateKey);
     showWalletBackup(mnemonic);
     setScreen(SCREEN_WALLET);
 
