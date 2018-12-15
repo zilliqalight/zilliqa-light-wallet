@@ -15,7 +15,7 @@ import PermIdentity from '@material-ui/icons/PermIdentity';
 import AES from 'crypto-js/aes';
 
 import {
-  generatePrivateKey,
+  schnorr,
   verifyPrivateKey,
   getAddressFromPrivateKey,
 } from '@zilliqa-js/crypto';
@@ -31,6 +31,10 @@ import { SCREEN_WALLET, setScreen } from '../actions/app';
 import { showWalletBackup } from '../actions/wallet';
 
 import Transition from './Transition';
+
+const  {
+  generatePrivateKey,
+} = schnorr;
 
 class CreateAccount extends Component {
   handleChange = event => {
