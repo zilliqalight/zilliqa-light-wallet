@@ -29,7 +29,7 @@ class SendToken extends React.Component {
     super(props);
     this.state = {
       sendTo: '',
-      sendAmount: 0,
+      sendAmount: undefined,
       sendGasPrice: 100,
       sendGasLimit: 1,
       isLoading: false,
@@ -110,7 +110,7 @@ class SendToken extends React.Component {
       } else {
         console.log('tx:', tx);
         this.setState({ isLoading: false, sendTo: '', sendAmount: 0 });
-        showSnackbar('Sent successfully!');
+        showSnackbar('Sent successfully!', true);
         hideSendToken();
       }
     } catch (error) {

@@ -80,7 +80,7 @@ class CreateAccount extends Component {
 
     await backgroundPage.setActiveAccount(activeAccount);
     setAccountInfo(accounts, activeAccount);
-    showSnackbar('Account is created successfully!');
+    showSnackbar('Account is created successfully!', true);
 
     const mnemonic = generateMnemonicFromString(privateKey);
     showWalletBackup(mnemonic);

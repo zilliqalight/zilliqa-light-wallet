@@ -3,11 +3,12 @@ import { RESET_STATE } from './constants';
 export const SHOW_SNACKBAR = 'SHOW_SNACKBAR';
 export const HIDE_SNACKBAR = 'HIDE_SNACKBAR';
 
-export const showSnackbar = message => ({
+export const showSnackbar = (message, isSuccess) => ({
   type: SHOW_SNACKBAR,
   payload: {
     snackbarOpen: true,
     snackbarMessage: message,
+    snackbarSuccess: isSuccess,
   },
 });
 

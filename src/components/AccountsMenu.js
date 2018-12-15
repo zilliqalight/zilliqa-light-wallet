@@ -63,7 +63,7 @@ class AccountsMenu extends Component {
         }
 
         if (activeAccount) {
-          showSnackbar('Account is switched successfully!');
+          showSnackbar('Account is switched successfully!', true);
 
           await backgroundPage.setActiveAccount(activeAccount); // set background
 

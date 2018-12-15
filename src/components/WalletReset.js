@@ -49,7 +49,7 @@ class WalletReset extends React.Component {
 
     setNetwork(DEFAULT_NETWORK);
 
-    showSnackbar('Wallet reset successfully!');
+    showSnackbar('Wallet reset successfully!', true);
     hideWalletReset();
   };
 

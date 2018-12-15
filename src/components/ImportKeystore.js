@@ -105,7 +105,7 @@ class ImportKeystore extends Component {
 
         await backgroundPage.setActiveAccount(activeAccount);
         setAccountInfo(accounts, activeAccount);
-        showSnackbar('Keystore file imported successfully!');
+        showSnackbar('Keystore file imported successfully!', true);
         setScreen(SCREEN_WALLET);
 
         hideImportKeystore();

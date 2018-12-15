@@ -84,7 +84,7 @@ class ImportPrivateKey extends Component {
 
     await backgroundPage.setActiveAccount(activeAccount);
     setAccountInfo(accounts, activeAccount);
-    showSnackbar('Private key imported successfully!');
+    showSnackbar('Private key imported successfully!', true);
     setScreen(SCREEN_WALLET);
 
     hideImportPrivateKey();

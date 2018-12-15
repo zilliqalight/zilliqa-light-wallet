@@ -95,7 +95,7 @@ class ImportMnemonic extends Component {
 
     await backgroundPage.setActiveAccount(activeAccount);
     setAccountInfo(accounts, activeAccount);
-    showSnackbar('Mnemonic imported successfully!');
+    showSnackbar('Mnemonic imported successfully!', true);
     setScreen(SCREEN_WALLET);
 
     hideImportMnemonic();
