@@ -32,9 +32,7 @@ import { showWalletBackup } from '../actions/wallet';
 
 import Transition from './Transition';
 
-const  {
-  generatePrivateKey,
-} = schnorr;
+const { generatePrivateKey } = schnorr;
 
 class CreateAccount extends Component {
   handleSubmit = event => {

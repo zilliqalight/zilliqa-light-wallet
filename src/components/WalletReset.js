@@ -52,6 +52,7 @@ class WalletReset extends React.Component {
     showSnackbar('Wallet reset successfully!');
     hideWalletReset();
   };
+
   render() {
     const { open, hideWalletReset } = this.props;
     return (
