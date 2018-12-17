@@ -3,7 +3,7 @@
 ![Zilliqa Light Wallet](https://github.com/zilliqalight/zilliqa-light-wallet/blob/master/assets/zwlscreen.png?v=0.1.1 "Zilliqa Light Wallet")
 
 ## Install from google store
-[chrome web store - Zilliqa Light Wallet](https://chrome.google.com/webstore/detail/pcaeihaibgpndmlpnchfnlhbgmlifmoj)
+[Chrome Web Store - Zilliqa Light Wallet](https://chrome.google.com/webstore/detail/pcaeihaibgpndmlpnchfnlhbgmlifmoj)
 
 ## Install the wallet from source code
 
