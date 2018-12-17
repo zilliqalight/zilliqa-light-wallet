@@ -13,6 +13,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import PermIdentity from '@material-ui/icons/PermIdentity';
 
 import AES from 'crypto-js/aes';
+import bip39 from 'bip39';
 
 import {
   schnorr,
@@ -49,7 +50,9 @@ class CreateAccount extends Component {
       showWalletBackup,
     } = this.props;
 
-    const privateKey = generatePrivateKey().toUpperCase();
+    const mnemonic = generateMnemonicFromString(generatePrivateKey());
+    const privateKey = bip39.mnemonicToSeedHex(mnemonic).toUpperCase();
+
     if (!verifyPrivateKey(privateKey)) {
       showSnackbar('Invalid private key! Please try again.');
       return;
@@ -77,12 +80,10 @@ class CreateAccount extends Component {
 
     accounts.push(activeAccount);
     await localStorage.setAccounts(accounts);
-
     await backgroundPage.setActiveAccount(activeAccount);
     setAccountInfo(accounts, activeAccount);
     showSnackbar('Account is created successfully!', true);
 
-    const mnemonic = generateMnemonicFromString(privateKey);
     showWalletBackup(mnemonic);
     setScreen(SCREEN_WALLET);
 
