@@ -29,7 +29,7 @@ class SendToken extends React.Component {
     super(props);
     this.state = {
       sendTo: '',
-      sendAmount: undefined,
+      sendAmount: '',
       sendGasPrice: 100,
       sendGasLimit: 1,
       isLoading: false,

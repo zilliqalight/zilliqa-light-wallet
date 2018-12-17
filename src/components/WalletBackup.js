@@ -50,7 +50,7 @@ class WalletBackup extends React.Component {
             <span className="private-key">{mnemonic}</span>
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
+        <DialogActions className="backup-wallet-confirmation">
           <FormControlLabel
             control={
               <Checkbox
