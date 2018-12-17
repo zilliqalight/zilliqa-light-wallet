@@ -3,7 +3,7 @@
 
   "name": "Zilliqa Light Wallet",
   "description": "Zilliqa Chrome Extension Wallet",
-  "version": "0.5.0",
+  "version": "0.6.0",
 
   "browser_action": {
     "default_popup": "index.html",
@@ -22,8 +22,6 @@
     "storage",
     "unlimitedStorage",
     "clipboardWrite",
-    "activeTab",
-    "tabs",
     "background",
     "downloads"
   ]
