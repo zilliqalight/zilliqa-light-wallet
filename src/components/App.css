@@ -132,12 +132,6 @@
   padding-top: 20px;
 }
 
-.transactions-card {
-  margin: 20px 0;
-  padding: 20px 0;
-  padding: 0px;
-}
-
 .send-card {
   padding-bottom: 40px;
 }
@@ -208,8 +202,9 @@
 }
 
 .transactions-card {
+  padding: 0px;
   width: 440px;
-  margin: 20px 0px 0 20px;
+  margin: 20px 0 0 20px;
 }
 
 .backup-keystore-card {
