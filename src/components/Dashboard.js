@@ -7,7 +7,10 @@ import IconButton from '@material-ui/core/IconButton/IconButton';
 import PermIdentity from '@material-ui/icons/PermIdentity';
 import VpnKey from '@material-ui/icons/VpnKey';
 
-import { getAddressAbbreviation } from '../utils/crypto';
+import {
+  getAddressAbbreviation,
+  ZeroBalanceUserDetails,
+} from '../utils/crypto';
 import { getIdenticonImage } from '../utils/identicon';
 import { createZilliqa } from '../utils/networks';
 
@@ -60,7 +63,16 @@ class Dashboard extends React.Component {
       try {
         const data = await zilliqa.blockchain.getBalance(activeAccount.address);
         if (data.error) {
-          console.error(data.error);
+          // If the account is not created, the API returns an error, we need to handle it as a zero balance account
+          if (data.error.code === -5) {
+            setActiveAccountDetails(ZeroBalanceUserDetails);
+            if (openSnackbar) {
+              hideSnackbar();
+            }
+          } else {
+            showSnackbar('Failed to load account info, please try again');
+            console.error(data.error);
+          }
         } else {
           const activeAccountDetails = data.result;
           setActiveAccountDetails(activeAccountDetails);
@@ -69,6 +81,7 @@ class Dashboard extends React.Component {
           }
         }
       } catch (e) {
+        showSnackbar('Failed to load account info, please try again');
         console.error(e);
       }
     }

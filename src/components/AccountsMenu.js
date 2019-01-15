@@ -12,6 +12,7 @@ import { hideAccounts, showAccounts } from '../actions/dashboard';
 import { hideSnackbar, showSnackbar } from '../actions/snackbar';
 import { setActiveAccountDetails, setAccountInfo } from '../actions/account';
 import { SCREEN_IMPORT_OR_CREATE_ACCOUNT, setScreen } from '../actions/app';
+import { ZeroBalanceUserDetails } from '../utils/crypto';
 
 class AccountsMenu extends Component {
   loadAccounts = async () => {
@@ -77,7 +78,15 @@ class AccountsMenu extends Component {
                 activeAccount.address
               );
               if (data.error) {
-                console.error(data.error);
+                // If the account is not created, the API returns an error, we need to handle it as a zero balance account
+                if (data.error.code === -5) {
+                  setActiveAccountDetails(ZeroBalanceUserDetails);
+                  setAccountInfo(accounts, activeAccount);
+                  hideSnackbar();
+                } else {
+                  showSnackbar('Failed to switch account, please try again');
+                  console.error(data.error);
+                }
               } else {
                 const activeAccountDetails = data.result;
                 setActiveAccountDetails(activeAccountDetails);
@@ -85,6 +94,7 @@ class AccountsMenu extends Component {
                 hideSnackbar();
               }
             } catch (e) {
+              showSnackbar('Failed to switch account, please try again');
               console.error(e);
             }
           }

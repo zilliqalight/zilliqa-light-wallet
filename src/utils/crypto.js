@@ -5,6 +5,11 @@ import passwordValidator from 'password-validator';
 
 import { backgroundPage } from './backgroundPage';
 
+export const ZeroBalanceUserDetails = {
+  balance: '0',
+  nonce: 0,
+};
+
 export const isAddress = address => {
   return address && address.length === 40;
 };
