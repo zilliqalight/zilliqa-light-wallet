@@ -7,6 +7,8 @@ import IconButton from '@material-ui/core/IconButton/IconButton';
 import PermIdentity from '@material-ui/icons/PermIdentity';
 import VpnKey from '@material-ui/icons/VpnKey';
 
+import { BN, units } from '@zilliqa-js/util';
+
 import {
   getAddressAbbreviation,
   ZeroBalanceUserDetails,
@@ -103,7 +105,8 @@ class Dashboard extends React.Component {
     const { address } = activeAccount;
     const identiconImage = getIdenticonImage(address);
     const addressAbbreviation = getAddressAbbreviation(address);
-    const balanceInZil = Number((balance / 1000000000000).toFixed(6)).toString(); // units.fromQa(balance, units.Units.Zil);
+
+    const balanceInZil = Number(Number(units.fromQa(new BN(balance), units.Units.Zil)).toFixed(6)).toString();
 
     return (
       <div className="cards">
