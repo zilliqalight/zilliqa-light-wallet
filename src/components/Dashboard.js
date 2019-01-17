@@ -103,6 +103,7 @@ class Dashboard extends React.Component {
     const { address } = activeAccount;
     const identiconImage = getIdenticonImage(address);
     const addressAbbreviation = getAddressAbbreviation(address);
+    const balanceInZil = Number((balance / 1000000000000).toFixed(6)).toString(); // units.fromQa(balance, units.Units.Zil);
 
     return (
       <div className="cards">
@@ -133,7 +134,7 @@ class Dashboard extends React.Component {
             </Tooltip>
           </div>
 
-          <div className="balance">{balance} ZIL</div>
+          <div className="balance">{balanceInZil} ZIL</div>
           <Price />
 
           <div className="balance">
