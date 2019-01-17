@@ -24,7 +24,6 @@ import Transition from './Transition';
 import { hideSendToken } from '../actions/wallet';
 import { showSnackbar } from '../actions/snackbar';
 
-
 const CHAIN_ID = 62;
 const MSG_VERSION = 1;
 const VERSION = bytes.pack(CHAIN_ID, MSG_VERSION);

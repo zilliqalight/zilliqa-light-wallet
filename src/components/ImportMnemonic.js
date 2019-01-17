@@ -14,11 +14,10 @@ import LockOpen from '@material-ui/icons/LockOpen';
 import Button from '@material-ui/core/Button/Button';
 
 import AES from 'crypto-js/aes';
-import bip39 from 'bip39';
 
 import { verifyPrivateKey, getAddressFromPrivateKey } from '@zilliqa-js/crypto';
 
-import { isMnemonicValid } from '../utils/crypto';
+import { isMnemonicValid, mnemonicToPrivateKey } from '../utils/crypto';
 import { backgroundPage } from '../utils/backgroundPage';
 import { localStorage } from '../utils/localStorage';
 
@@ -59,12 +58,12 @@ class ImportMnemonic extends Component {
     } = this.props;
     const { mnemonic } = this.state;
 
-    if (!bip39.validateMnemonic(mnemonic)) {
+    if (!isMnemonicValid(mnemonic)) {
       showSnackbar('Invalid mnemonic! Please try again.');
       return;
     }
 
-    const privateKey = bip39.mnemonicToSeedHex(mnemonic).toUpperCase();
+    const privateKey = mnemonicToPrivateKey(mnemonic).toUpperCase();
     if (!verifyPrivateKey(privateKey)) {
       showSnackbar('Invalid private key! Please try again.');
       return;

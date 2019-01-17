@@ -1,4 +1,5 @@
 import bip39 from 'bip39';
+import hdkey from 'hdkey';
 import AES from 'crypto-js/aes';
 import CryptoJS from 'crypto-js';
 import passwordValidator from 'password-validator';
@@ -49,11 +50,18 @@ export const isPrivateKeyValid = privateKey => {
 };
 
 export const isMnemonicValid = mnemonic => {
-  return mnemonic && bip39.validateMnemonic(mnemonic);
+  if (mnemonic.trim().split(/\s+/g).length < 12) {
+    return false;
+  }
+  return bip39.validateMnemonic(mnemonic);
 };
 
-export const generateMnemonicFromString = str => {
-  return str && bip39.entropyToMnemonic(str);
+export const mnemonicToPrivateKey = mnemonic => {
+  const seed = bip39.mnemonicToSeed(mnemonic);
+  const hdKey = hdkey.fromMasterSeed(seed);
+  const childKey = hdKey.derive(`m/44'/8888'/0'/0/0`);
+  const privateKey = childKey.privateKey.toString('hex');
+  return privateKey;
 };
 
 export const getActivePrivateKey = async encryptedPrivateKey => {

@@ -106,7 +106,9 @@ class Dashboard extends React.Component {
     const identiconImage = getIdenticonImage(address);
     const addressAbbreviation = getAddressAbbreviation(address);
 
-    const balanceInZil = Number(Number(units.fromQa(new BN(balance), units.Units.Zil)).toFixed(6)).toString();
+    const balanceInZil = Number(
+      Number(units.fromQa(new BN(balance), units.Units.Zil)).toFixed(6)
+    ).toString();
 
     return (
       <div className="cards">

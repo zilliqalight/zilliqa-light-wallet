@@ -15,13 +15,8 @@ import PermIdentity from '@material-ui/icons/PermIdentity';
 import AES from 'crypto-js/aes';
 import bip39 from 'bip39';
 
-import {
-  schnorr,
-  verifyPrivateKey,
-  getAddressFromPrivateKey,
-} from '@zilliqa-js/crypto';
+import { verifyPrivateKey, getAddressFromPrivateKey } from '@zilliqa-js/crypto';
 
-import { generateMnemonicFromString } from '../utils/crypto';
 import { localStorage } from '../utils/localStorage';
 import { backgroundPage } from '../utils/backgroundPage';
 
@@ -32,8 +27,7 @@ import { SCREEN_WALLET, setScreen } from '../actions/app';
 import { showWalletBackup } from '../actions/wallet';
 
 import Transition from './Transition';
-
-const { generatePrivateKey } = schnorr;
+import { mnemonicToPrivateKey } from '../utils/crypto';
 
 class CreateAccount extends Component {
   handleSubmit = event => {
@@ -50,8 +44,8 @@ class CreateAccount extends Component {
       showWalletBackup,
     } = this.props;
 
-    const mnemonic = generateMnemonicFromString(generatePrivateKey());
-    const privateKey = bip39.mnemonicToSeedHex(mnemonic).toUpperCase();
+    const mnemonic = bip39.generateMnemonic();
+    const privateKey = mnemonicToPrivateKey(mnemonic).toUpperCase();
 
     if (!verifyPrivateKey(privateKey)) {
       showSnackbar('Invalid private key! Please try again.');
