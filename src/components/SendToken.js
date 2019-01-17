@@ -14,7 +14,7 @@ import Button from '@material-ui/core/Button/Button';
 import Send from '@material-ui/icons/Send';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import { BN, Long } from '@zilliqa-js/util';
+import { Long, bytes, units } from '@zilliqa-js/util';
 
 import { getActivePrivateKey, isAddress } from '../utils/crypto';
 import { createZilliqa } from '../utils/networks';
@@ -24,13 +24,18 @@ import Transition from './Transition';
 import { hideSendToken } from '../actions/wallet';
 import { showSnackbar } from '../actions/snackbar';
 
+
+const CHAIN_ID = 62;
+const MSG_VERSION = 1;
+const VERSION = bytes.pack(CHAIN_ID, MSG_VERSION);
+
 class SendToken extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       sendTo: '',
       sendAmount: '',
-      sendGasPrice: 100,
+      sendGasPrice: 1000,
       sendGasLimit: 1,
       isLoading: false,
     };
@@ -91,13 +96,12 @@ class SendToken extends React.Component {
       // Populate the wallet with an account
       zilliqa.wallet.addByPrivateKey(privateKey);
       showSnackbar('Submitting send transaction, please wait...');
-
       const tx = await zilliqa.blockchain.createTransaction(
         zilliqa.transactions.new({
-          version: 1,
+          version: VERSION,
           toAddr: sendTo,
-          amount: new BN(sendAmount),
-          gasPrice: new BN(sendGasPrice),
+          amount: units.toQa(sendAmount, units.Units.Zil),
+          gasPrice: units.toQa(sendGasPrice, units.Units.Li),
           gasLimit: Long.fromNumber(sendGasLimit),
         })
       );
@@ -116,7 +120,7 @@ class SendToken extends React.Component {
     } catch (error) {
       this.setState({ isLoading: false });
       console.error(error);
-      showSnackbar(`Send failed, ${error}, please retry later.`);
+      showSnackbar(`Send failed, ${error.message}, please retry later.`);
     }
   };
 
@@ -191,7 +195,7 @@ class SendToken extends React.Component {
             <TextField
               required
               name="sendGasPrice"
-              label="Gas Price"
+              label="Gas Price(Li) Note: 1 Zil = 1,000,000 Li"
               className="send-amount"
               value={sendGasPrice}
               onChange={this.handleAmountChange}
