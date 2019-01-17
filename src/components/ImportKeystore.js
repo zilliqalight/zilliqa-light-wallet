@@ -69,53 +69,50 @@ class ImportKeystore extends Component {
       setScreen,
     } = this.props;
 
-    const jsonData = await this.parseFile(event.target.files[0]);
-    const keystore = jsonData[0];
-    await Account.fromFile(keystore, this.state.password)
-      .then(async function(account) {
-        const privateKey = account.privateKey;
+    try {
+      const jsonData = await this.parseFile(event.target.files[0]);
+      const keystore = jsonData[0];
+      const account = await Account.fromFile(keystore, this.state.password);
+      const privateKey = account.privateKey;
 
-        if (!verifyPrivateKey(privateKey)) {
-          showSnackbar('Invalid keystore file! Please try again.');
-          return;
-        }
-
-        const address = getAddressFromPrivateKey(privateKey).toUpperCase();
-        const passwordHashInBackground = await backgroundPage.getPasswordHash();
-        const accounts = await localStorage.getAccounts();
-        const encryptedPrivateKey = AES.encrypt(
-          privateKey,
-          passwordHashInBackground
-        ).toString();
-
-        const accountExisted =
-          accounts.filter(account => account.address === address).length > 0;
-        if (accountExisted) {
-          showSnackbar('Account already exists! Please import another one.');
-          return;
-        }
-
-        const activeAccount = {
-          address,
-          encryptedPrivateKey,
-        };
-
-        accounts.push(activeAccount);
-        await localStorage.setAccounts(accounts);
-
-        await backgroundPage.setActiveAccount(activeAccount);
-        setAccountInfo(accounts, activeAccount);
-        showSnackbar('Keystore file imported successfully!', true);
-        setScreen(SCREEN_WALLET);
-
-        hideImportKeystore();
-      })
-      .catch(function(e) {
-        showSnackbar('Fail to import keystore file');
+      if (!verifyPrivateKey(privateKey)) {
+        showSnackbar('Invalid keystore file! Please try again.');
         return;
-      });
+      }
 
-    return;
+      const address = getAddressFromPrivateKey(privateKey).toUpperCase();
+      const passwordHashInBackground = await backgroundPage.getPasswordHash();
+      const accounts = await localStorage.getAccounts();
+      const encryptedPrivateKey = AES.encrypt(
+        privateKey,
+        passwordHashInBackground
+      ).toString();
+
+      const accountExisted =
+        accounts.filter(account => account.address === address).length > 0;
+      if (accountExisted) {
+        showSnackbar('Account already exists! Please import another one.');
+        return;
+      }
+
+      const activeAccount = {
+        address,
+        encryptedPrivateKey,
+      };
+
+      accounts.push(activeAccount);
+      await localStorage.setAccounts(accounts);
+
+      await backgroundPage.setActiveAccount(activeAccount);
+      setAccountInfo(accounts, activeAccount);
+      showSnackbar('Keystore file imported successfully!', true);
+      setScreen(SCREEN_WALLET);
+
+      hideImportKeystore();
+    } catch (e) {
+      console.error(e);
+      showSnackbar('Fail to import keystore file, the password maybe wrong!');
+    }
   };
 
   render() {
