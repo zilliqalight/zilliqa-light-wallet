@@ -4,6 +4,10 @@ const BASE_URL = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/';
 const KEY = '79766571-1511-4aa4-b91a-5c85fca8a4be';
 
 export default async () => {
+  if (process.env.NODE_ENV === 'development') {
+    return null;
+  }
+
   const request = xhr.create({
     baseURL: BASE_URL,
     timeout: 3000,
