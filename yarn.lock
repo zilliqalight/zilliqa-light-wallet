@@ -950,9 +950,9 @@
     loader-utils "^1.1.0"
 
 "@types/bip39@^2.4.0":
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/@types/bip39/-/bip39-2.4.1.tgz#1a47b453b59a50d7b5856819b834c74798915eb3"
-  integrity sha512-QHx0qI6JaTIW/S3zxE/bXrwOWu6Boos+LZ4438xmFAHY5k+qHkExMdAnb/DENEt2RBnOdZ6c5J+SHrnLEhUohQ==
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/@types/bip39/-/bip39-2.4.2.tgz#f5d6617212be496bb998d3969f657f77a10c5287"
+  integrity sha512-Vo9lqOIRq8uoIzEVrV87ZvcIM0PN9t0K3oYZ/CS61fIYKCBdOIM7mlWzXuRvSXrDtVa1uUO2w1cdfufxTC0bzg==
   dependencies:
     "@types/node" "*"
 
@@ -983,10 +983,15 @@
   resolved "https://registry.yarnpkg.com/@types/long/-/long-4.0.0.tgz#719551d2352d301ac8b81db732acb6bdc28dbdef"
   integrity sha512-1w52Nyx4Gq47uuu0EVcsHBxZFJgurQ+rTKS3qMHxR1GY2T8c2AJYd6vZoZ9q1rupaDjU0yT+Jc2XTyXkjeMA+Q==
 
-"@types/node@*", "@types/node@^10.1.0":
-  version "10.12.18"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.18.tgz#1d3ca764718915584fcd9f6344621b7672665c67"
-  integrity sha512-fh+pAqt4xRzPfqA6eh3Z2y6fyZavRIumvjhaCL753+TVkGKGhpPeyrJG2JftD0T9q4GF00KjefsQ+PQNDdWQaQ==
+"@types/node@*":
+  version "11.9.4"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.9.4.tgz#ceb0048a546db453f6248f2d1d95e937a6f00a14"
+  integrity sha512-Zl8dGvAcEmadgs1tmSPcvwzO1YRsz38bVJQvH1RvRqSR9/5n61Q1ktcDL0ht3FXWR+ZpVmXVwN1LuH4Ax23NsA==
+
+"@types/node@^10.1.0":
+  version "10.12.26"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.26.tgz#2dec19f1f7981c95cb54bab8f618ecb5dc983d0e"
+  integrity sha512-nMRqS+mL1TOnIJrL6LKJcNZPB8V3eTfRo9FQA2b5gDvrHurC8XbSA86KNe0dShlEL7ReWJv/OU9NL7Z0dnqWTg==
 
 "@types/prop-types@*":
   version "15.5.6"
@@ -1170,57 +1175,57 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.1.tgz#5c85d662f76fa1d34575766c5dcd6615abcd30d8"
   integrity sha512-FZdkNBDqBRHKQ2MEbSC17xnPFOhZxeJ2YGSfr2BKf3sujG49Qe3bB+rGCwQfIaA7WHnGeGkSijX4FuBCdrzW/g==
 
-"@zilliqa-js/account@0.3.4":
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/@zilliqa-js/account/-/account-0.3.4.tgz#431b67ce210df50b321bc05522ff22ec6c2f6bf5"
-  integrity sha512-8pMebT0LuJegKu6kpLAYZY+U508GmpHxMdQa88gtNDD8GRcRUOGG7mRwSDmFBEMIAOH1dtj6yt5eMUxnyY6LCQ==
+"@zilliqa-js/account@0.5.1":
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/@zilliqa-js/account/-/account-0.5.1.tgz#857dff919c456ecb92e69bed0fade0ca30b5fb9d"
+  integrity sha512-u1r4c3tRSG9axx9PHy8hTBrmoSOtjTrW082ginzR0x1reuretgUClSJiRLJyUkzsRRX9IwfPMGLKBPVB739yrA==
   dependencies:
     "@types/bip39" "^2.4.0"
     "@types/hdkey" "^0.7.0"
-    "@zilliqa-js/core" "0.3.3"
-    "@zilliqa-js/crypto" "0.3.3"
-    "@zilliqa-js/proto" "0.3.0"
-    "@zilliqa-js/util" "0.3.3"
+    "@zilliqa-js/core" "0.5.0"
+    "@zilliqa-js/crypto" "0.5.0"
+    "@zilliqa-js/proto" "0.5.0"
+    "@zilliqa-js/util" "0.5.0"
     bip39 "^2.5.0"
     hdkey "^1.1.0"
 
-"@zilliqa-js/blockchain@0.3.4":
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/@zilliqa-js/blockchain/-/blockchain-0.3.4.tgz#3e683e557414f69a3add1a70078c1dd2cc8c25b9"
-  integrity sha512-9UF7Z3n+3zDMNJGBKPCpmhSb+dNlTA7gIYEAjfvShiRIOjUx5qK34xgz71EyVTy08gAoUAW6LJqGxbIZepQSbA==
+"@zilliqa-js/blockchain@0.5.1":
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/@zilliqa-js/blockchain/-/blockchain-0.5.1.tgz#44191357c2f88d6fbbc8f11630fe7affc7c5d0e9"
+  integrity sha512-aDvCsMKEr/Mlt5B4mR7uCvKqmq+hvkP6ssZo1uzVCm8Zq6M8zUyZlF2xvrnhGZfj2wcs6SjQ0vAVaUxXpon8YA==
   dependencies:
-    "@zilliqa-js/account" "0.3.4"
-    "@zilliqa-js/core" "0.3.3"
-    "@zilliqa-js/util" "0.3.3"
+    "@zilliqa-js/account" "0.5.1"
+    "@zilliqa-js/contract" "0.5.1"
+    "@zilliqa-js/core" "0.5.0"
+    "@zilliqa-js/util" "0.5.0"
 
-"@zilliqa-js/contract@0.3.4":
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/@zilliqa-js/contract/-/contract-0.3.4.tgz#5267fdb30b7e7a512244d03cdf0fc728178e6522"
-  integrity sha512-wbjlBGZi/sgD42rj8OP3KbKAf+nkIHz+SyeyfQATsNhSOUk0ol6Wpz42a2P3EixSdv7/QkTP65zneziGnrbpiA==
+"@zilliqa-js/contract@0.5.1":
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/@zilliqa-js/contract/-/contract-0.5.1.tgz#3d77f1288e1366a70b2cde770374efa0495c8cc5"
+  integrity sha512-1ivz4Z0YtNUG4/Fl7vJwc+TdDcnuhioEYz1rrwGtXWs2luPgZYB0Tu9vb4kqtv6rDCZRwbQq4ZhFPEv6Jik8GA==
   dependencies:
-    "@zilliqa-js/account" "0.3.4"
-    "@zilliqa-js/blockchain" "0.3.4"
-    "@zilliqa-js/core" "0.3.3"
-    "@zilliqa-js/util" "0.3.3"
+    "@zilliqa-js/account" "0.5.1"
+    "@zilliqa-js/core" "0.5.0"
+    "@zilliqa-js/util" "0.5.0"
     hash.js "^1.1.5"
     utility-types "^2.1.0"
 
-"@zilliqa-js/core@0.3.3":
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/@zilliqa-js/core/-/core-0.3.3.tgz#c0d5418fba57d56e741d84e727665d437b284b44"
-  integrity sha512-NZ+v6fTwrCW2EhIj2+tt2hS5PldgsM4KGIuzYaMggfs4pzaOnYDZyqdreY/yR8Y3zhajzXyjd/VY35eAHLQuGw==
+"@zilliqa-js/core@0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@zilliqa-js/core/-/core-0.5.0.tgz#979dc56ae3db89dbb3ab4ac598c535e27d4496b0"
+  integrity sha512-kg3Jf29i80J+jYQfpyL6xIy+vdE5wkem+6z5+ulimUbFIHe5+CMoB4uS0pTjBg9ptV1BX2y8vDqjzTK9d/PWNA==
   dependencies:
-    "@zilliqa-js/util" "0.3.3"
+    "@zilliqa-js/util" "0.5.0"
     axios "^0.18.0"
     cross-fetch "^2.2.2"
     mitt "^1.1.3"
 
-"@zilliqa-js/crypto@0.3.3":
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/@zilliqa-js/crypto/-/crypto-0.3.3.tgz#9773f828dc5f8057bb10e94c948f253045089ac5"
-  integrity sha512-hjaoLJCUXumzOmjTplrjK2q5M+rqiK/Zmv4lY7QKX5QUT4GfAUvma5ip+L1WD5tRKmzL7uNjzIFD3ChJxYLPvg==
+"@zilliqa-js/crypto@0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@zilliqa-js/crypto/-/crypto-0.5.0.tgz#7a1d74a0c345663d33649d9cbcfa4b1cb0a09617"
+  integrity sha512-OhJ82MGa8Or6DfShsBYYfWhd4gwcd5dEPLPy4I1NG7tkbp5+6AmZsDwbVpidYHfmuTi/eGnm8Q0J0hrGgWEGCg==
   dependencies:
-    "@zilliqa-js/util" "0.3.3"
+    "@zilliqa-js/util" "0.5.0"
     aes-js "^3.1.1"
     bsert "^0.0.4"
     elliptic "^6.4.1"
@@ -1231,34 +1236,34 @@
     scrypt.js "^0.2.0"
     uuid "^3.3.2"
 
-"@zilliqa-js/proto@0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@zilliqa-js/proto/-/proto-0.3.0.tgz#aab99c9a63fdb8d2771323f4e03173b7002b512e"
-  integrity sha512-y1Ie4hl6jlidTJ58uXjM9HCcASNcFxj53x+p7ZBdEXgxChP3xOmnW+GEKWgwMn8kgX8D5pcQSxEOtfI2GJkeQQ==
+"@zilliqa-js/proto@0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@zilliqa-js/proto/-/proto-0.5.0.tgz#82d5074353d089a932973d8ad449657463b0dab7"
+  integrity sha512-zprgKMRbCjNH3j1vKpUG53Vl2dM9IaVYKiSaR2WHX/jIP0Ej6PvHT4v/rEsJpcbpLzvxAXjyi7J7Ur/zj3u9EQ==
   dependencies:
     protobufjs "^6.8.8"
 
-"@zilliqa-js/util@0.3.3":
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/@zilliqa-js/util/-/util-0.3.3.tgz#c456edcb5d9a7fbcd73b82df7ef89203c210ffc1"
-  integrity sha512-4KfTh4uY7tulFsCQzniW8PisEvHBYtz/KDRSGkNFVvdLDHFIvu8KxdOMTy4rpd4HetZ/8mOSwhSskdT5lZfCSw==
+"@zilliqa-js/util@0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@zilliqa-js/util/-/util-0.5.0.tgz#a2a09e1370bea8f3ed6b54106b2575f64b17e71c"
+  integrity sha512-hcH6fkmGz3j9GaerYJ4GMGwJEchNWMh4HlWbEEugJFnmoJqKUbiEh5MZncO2vmpa7sDJHxnIgVeoVq+yy3gdRQ==
   dependencies:
     "@types/bn.js" "^4.11.3"
     "@types/long" "^4.0.0"
     bn.js "^4.11.8"
     long "^4.0.0"
 
-"@zilliqa-js/zilliqa@^0.3.4":
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/@zilliqa-js/zilliqa/-/zilliqa-0.3.4.tgz#95f7958dba069de7e2d69ff5ee34e249b005f7be"
-  integrity sha512-TRHk3cMIWiEqzQNxEuyG87qpR7kB/kZrFNtQxrjT06+CCj7z/A1q3DRIGlm1KtB2TPwwdPHMvdahP4JRPHVruA==
+"@zilliqa-js/zilliqa@^0.5.1":
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/@zilliqa-js/zilliqa/-/zilliqa-0.5.1.tgz#56aed122f00895dcfa4b936f08bc1905058fb495"
+  integrity sha512-U+bj9lvEtKOcQZl8wz+ss1ZwP50kyRCGcTH+lJ+FE5VfgmiYAzJvTE14UBhP82+kBXOdP0xgKHXftX94wRhvnA==
   dependencies:
-    "@zilliqa-js/account" "0.3.4"
-    "@zilliqa-js/blockchain" "0.3.4"
-    "@zilliqa-js/contract" "0.3.4"
-    "@zilliqa-js/core" "0.3.3"
-    "@zilliqa-js/crypto" "0.3.3"
-    "@zilliqa-js/util" "0.3.3"
+    "@zilliqa-js/account" "0.5.1"
+    "@zilliqa-js/blockchain" "0.5.1"
+    "@zilliqa-js/contract" "0.5.1"
+    "@zilliqa-js/core" "0.5.0"
+    "@zilliqa-js/crypto" "0.5.0"
+    "@zilliqa-js/util" "0.5.0"
 
 abab@^2.0.0:
   version "2.0.0"

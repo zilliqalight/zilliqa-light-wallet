@@ -1,4 +1,5 @@
 import { Zilliqa } from '@zilliqa-js/zilliqa';
+import { bytes } from '@zilliqa-js/util';
 
 const MAINNET = 'MAINNET';
 const TESTNET = 'TESTNET';
@@ -7,10 +8,12 @@ const DEFAULT_NETWORK = TESTNET;
 const isMainnet = network => network === MAINNET;
 const isTestnet = network => network === TESTNET;
 
-const TESTNET_NODE_URL = 'https://api.zilliqa.com/';
+const MAINNET_NODE_URL = 'https://api.zilliqa.com/';
+const TESTNET_NODE_URL = 'https://dev-api.zilliqa.com';
+
 const getNodeUrl = network => {
   if (isMainnet(network)) {
-    return 'https://mainnet.is.not.support.yet';
+    return MAINNET_NODE_URL;
   } else if (isTestnet(network)) {
     return TESTNET_NODE_URL;
   } else {
@@ -22,12 +25,18 @@ const createZilliqa = network => {
   return new Zilliqa(getNodeUrl(network));
 };
 
+const getZilliqaVersion = async zilliqa => {
+  const { result } = await zilliqa.network.GetNetworkId();
+  const MSG_VERSION = 1;
+  return bytes.pack(result, MSG_VERSION);
+};
+
 export {
   MAINNET,
   TESTNET,
   DEFAULT_NETWORK,
-  getNodeUrl,
   isMainnet,
   isTestnet,
   createZilliqa,
+  getZilliqaVersion,
 };

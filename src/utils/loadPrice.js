@@ -11,10 +11,10 @@ export default async () => {
   const request = xhr.create({
     baseURL: BASE_URL,
     timeout: 3000,
-    headers: {'X-CMC_PRO_API_KEY': KEY}
+    headers: { 'X-CMC_PRO_API_KEY': KEY },
   });
   const { data } = await request.get('listings/latest');
-  const zil = data.data.find( coin => coin.symbol === 'ZIL');
+  const zil = data.data.find(coin => coin.symbol === 'ZIL');
   if (zil) {
     return zil.quote.USD;
   } else {

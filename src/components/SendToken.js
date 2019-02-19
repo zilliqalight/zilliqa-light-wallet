@@ -14,19 +14,15 @@ import Button from '@material-ui/core/Button/Button';
 import Send from '@material-ui/icons/Send';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import { Long, bytes, units } from '@zilliqa-js/util';
+import { Long, units } from '@zilliqa-js/util';
 
 import { getActivePrivateKey, isAddress } from '../utils/crypto';
-import { createZilliqa } from '../utils/networks';
+import { createZilliqa, getZilliqaVersion } from '../utils/networks';
 
 import Transition from './Transition';
 
 import { hideSendToken } from '../actions/wallet';
 import { showSnackbar } from '../actions/snackbar';
-
-const CHAIN_ID = 62;
-const MSG_VERSION = 1;
-const VERSION = bytes.pack(CHAIN_ID, MSG_VERSION);
 
 class SendToken extends React.Component {
   constructor(props) {
@@ -95,9 +91,10 @@ class SendToken extends React.Component {
       // Populate the wallet with an account
       zilliqa.wallet.addByPrivateKey(privateKey);
       showSnackbar('Submitting send transaction, please wait...');
+      const version = await getZilliqaVersion(zilliqa);
       const tx = await zilliqa.blockchain.createTransaction(
         zilliqa.transactions.new({
-          version: VERSION,
+          version,
           toAddr: sendTo,
           amount: units.toQa(sendAmount, units.Units.Zil),
           gasPrice: units.toQa(sendGasPrice, units.Units.Li),
