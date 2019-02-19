@@ -31,6 +31,16 @@ const getZilliqaVersion = async zilliqa => {
   return bytes.pack(result, MSG_VERSION);
 };
 
+const getNetworkName = network => {
+  if (isMainnet(network)) {
+    return 'MAINNET';
+  } else if (isTestnet(network)) {
+    return 'TESTNET';
+  } else {
+    return 'UNKNOWNNET';
+  }
+};
+
 export {
   MAINNET,
   TESTNET,
@@ -39,4 +49,5 @@ export {
   isTestnet,
   createZilliqa,
   getZilliqaVersion,
+  getNetworkName,
 };
