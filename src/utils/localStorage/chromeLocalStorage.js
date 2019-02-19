@@ -67,7 +67,7 @@ const getAccounts = () => {
 const setNetwork = network => {
   return new Promise(resolve => {
     /* eslint-disable no-undef */
-    chrome.storage.local.set({ network: network }, function(result) {
+    chrome.storage.local.set({ network: network }, result => {
       resolve(network);
     });
   });

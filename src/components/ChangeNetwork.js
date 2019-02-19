@@ -12,7 +12,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import Transition from './Transition';
 import { hideNetwork } from '../actions/appBar';
-import { SCREEN_UNLOCK_WALLET, setScreen, setNetwork } from '../actions/app';
+import { setNetwork } from '../actions/app';
+import { localStorage } from '../utils/localStorage';
 
 class ChangeNetwork extends Component {
   constructor(props) {
@@ -32,13 +33,12 @@ class ChangeNetwork extends Component {
   };
 
   changeNetwork = () => {
-    const { hideNetwork, network, setScreen, setNetwork } = this.props;
-
+    const { hideNetwork, network, setNetwork } = this.props;
     hideNetwork();
 
     if (network !== this.state.networkInSelection) {
       setNetwork(this.state.networkInSelection);
-      setScreen(SCREEN_UNLOCK_WALLET);
+      localStorage.setNetwork(this.state.networkInSelection);
     }
   };
 
@@ -62,7 +62,6 @@ class ChangeNetwork extends Component {
               onChange={this.handleNetworkChange}
             >
               <FormControlLabel
-                disabled
                 value="MAINNET"
                 key="MAINNET"
                 control={<Radio />}
@@ -101,7 +100,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   hideNetwork,
-  setScreen,
   setNetwork,
 };
 
