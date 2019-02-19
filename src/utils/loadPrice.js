@@ -1,8 +1,19 @@
 import xhr from 'axios';
 
-const COINMARKETCAP_URL = 'https://api.coinmarketcap.com/v2/ticker/2469/';
+const BASE_URL = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/';
+const KEY = '79766571-1511-4aa4-b91a-5c85fca8a4be';
 
 export default async () => {
-  const { data } = await xhr.get(COINMARKETCAP_URL);
-  return data.data.quotes.USD;
+  const request = xhr.create({
+    baseURL: BASE_URL,
+    timeout: 3000,
+    headers: {'X-CMC_PRO_API_KEY': KEY}
+  });
+  const { data } = await request.get('listings/latest');
+  const zil = data.data.find( coin => coin.symbol === 'ZIL');
+  if (zil) {
+    return zil.quote.USD;
+  } else {
+    return null;
+  }
 };
