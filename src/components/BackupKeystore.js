@@ -41,7 +41,8 @@ class BackupKeystore extends React.Component {
 
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
-    if (this.props.activeAccount !== prevProps.activeAccount) {
+    if (this.props.activeAccount !== prevProps.activeAccount ||
+      this.props.reloadAccountNonce !== prevProps.reloadAccountNonce) {
       this.setState({ activeAccount: this.props.activeAccount });
     }
   }
@@ -138,6 +139,7 @@ class BackupKeystore extends React.Component {
 const mapStateToProps = state => ({
   open: state.wallet.backupKeystoreOpen,
   activeAccount: state.account.activeAccount,
+  reloadAccountNonce: state.wallet.reloadAccountNonce,
 });
 
 const mapDispatchToProps = {

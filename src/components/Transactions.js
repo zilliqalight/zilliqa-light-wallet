@@ -14,12 +14,14 @@ import greenAvatar from '@material-ui/core/colors/green';
 import Grid from '@material-ui/core/Grid';
 
 import moment from 'moment';
+import { BN, units } from '@zilliqa-js/util';
 
 import loadTransactions from '../utils/loadTransactions';
 import { getAddressAbbreviation, getTxAbbreviation } from '../utils/crypto';
-
-const EXPLORER_ADDRESS_URL = 'https://viewblock.io/zilliqa/address/';
-const EXPLORER_TX_URL = 'https://viewblock.io/zilliqa/tx/';
+import {
+  getViewBlockAddressExplorerURL,
+  getViewBlockTXHashExplorerURL,
+} from '../utils/networks';
 
 const styles = {
   orangeAvatar: {
@@ -53,7 +55,8 @@ class Transactions extends React.Component {
 
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
-    if (this.props.activeAccount !== prevProps.activeAccount) {
+    if (this.props.activeAccount !== prevProps.activeAccount ||
+      this.props.reloadAccountNonce !== prevProps.reloadAccountNonce) {
       this.loadTransactions(this.props.activeAccount.address);
     }
   }
@@ -64,8 +67,9 @@ class Transactions extends React.Component {
   };
 
   goToExplorerAddress = () => {
-    const { activeAccount } = this.props;
-    window.open(`${EXPLORER_ADDRESS_URL}${activeAccount.address}`, '_blank');
+    const { activeAccount, network } = this.props;
+    const url = getViewBlockAddressExplorerURL(activeAccount.address, network);
+    window.open(url, '_blank');
   };
 
   renderAvatarColor(from, to) {
@@ -94,6 +98,7 @@ class Transactions extends React.Component {
 
   renderTransactionsTable() {
     const { transactions } = this.state;
+    const { network } = this.props;
     if (!transactions || transactions.length === 0) {
       return <div className="address">No transactions found!</div>;
     }
@@ -116,8 +121,14 @@ class Transactions extends React.Component {
           </TableHead>
           <TableBody>
             {transactions.map(transaction => {
-              const amount = transaction.value;
-              const txURL = `${EXPLORER_TX_URL}${transaction.hash}`;
+              const amountInZil = Number(
+                Number(units.fromQa(new BN(transaction.value), units.Units.Zil)).toFixed(6)
+              ).toString();
+
+              const txURL = getViewBlockTXHashExplorerURL(
+                transaction.hash,
+                network
+              );
               const avatar = this.renderAvatar(
                 transaction.from,
                 transaction.to
@@ -161,7 +172,7 @@ class Transactions extends React.Component {
                     </span>
                   </TableCell>
                   <TableCell className="transactions-amount" numeric>
-                    {amount}
+                    {amountInZil}
                   </TableCell>
                   <TableCell className="transactions-token">ZIL</TableCell>
                 </TableRow>
@@ -200,6 +211,8 @@ class Transactions extends React.Component {
 
 const mapStateToProps = state => ({
   activeAccount: state.account.activeAccount,
+  network: state.app.network,
+  reloadAccountNonce: state.wallet.reloadAccountNonce,
 });
 
 export default connect(mapStateToProps)(Transactions);

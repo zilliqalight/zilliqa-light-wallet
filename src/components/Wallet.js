@@ -8,7 +8,7 @@ import SendButton from './SendButton';
 import ReceiveButton from './ReceiveButton';
 import SendToken from './SendToken';
 import ReceiveToken from './ReceiveToken';
-// import Transactions from './Transactions';
+import Transactions from './Transactions';
 
 class Wallet extends Component {
   render() {
@@ -27,7 +27,7 @@ class Wallet extends Component {
         </div>
         <SendToken />
         <ReceiveToken />
-        {/*<Transactions />*/}
+        <Transactions />
       </div>
     );
   }
