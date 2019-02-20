@@ -10,6 +10,8 @@ const isTestnet = network => network === TESTNET;
 
 const MAINNET_NODE_URL = 'https://api.zilliqa.com/';
 const TESTNET_NODE_URL = 'https://dev-api.zilliqa.com';
+const MAINNET_CHAIN_ID = 1;
+const TESTNET_CHAIN_ID = 333;
 
 const getNodeUrl = network => {
   if (isMainnet(network)) {
@@ -25,10 +27,10 @@ const createZilliqa = network => {
   return new Zilliqa(getNodeUrl(network));
 };
 
-const getZilliqaVersion = async zilliqa => {
-  const { result } = await zilliqa.network.GetNetworkId();
+const getZilliqaVersion = async network => {
+  const chainID = isMainnet(network) ? MAINNET_CHAIN_ID : TESTNET_CHAIN_ID;
   const MSG_VERSION = 1;
-  return bytes.pack(result, MSG_VERSION);
+  return bytes.pack(chainID, MSG_VERSION);
 };
 
 const getNetworkName = network => {

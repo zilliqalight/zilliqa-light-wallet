@@ -97,7 +97,7 @@ class SendToken extends React.Component {
       // Populate the wallet with an account
       zilliqa.wallet.addByPrivateKey(privateKey);
       showSnackbar('Submitting send transaction, please wait...');
-      const version = await getZilliqaVersion(zilliqa);
+      const version = await getZilliqaVersion(network);
       const tx = await zilliqa.blockchain.createTransaction(
         zilliqa.transactions.new({
           version,

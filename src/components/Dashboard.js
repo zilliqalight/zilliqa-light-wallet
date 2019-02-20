@@ -40,7 +40,6 @@ class Dashboard extends React.Component {
       this.props.activeAccount !== prevProps.activeAccount ||
       this.props.reloadAccountNonce !== prevProps.reloadAccountNonce
     ) {
-
       this.loadActiveAccountDetails(this.props.showReloadAccountSnackbar);
     }
   }
