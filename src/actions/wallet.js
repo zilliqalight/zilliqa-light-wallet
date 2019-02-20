@@ -1,4 +1,5 @@
 import { RESET_STATE } from './constants';
+import uuid from 'uuid/v4';
 
 export const SHOW_IMPORT_PRIVATE_KEY = 'SHOW_IMPORT_PRIVATE_KEY';
 export const SHOW_IMPORT_MNEMONIC = 'SHOW_IMPORT_MNEMONIC';
@@ -13,6 +14,8 @@ export const SHOW_WALLET_RESET = 'SHOW_WALLET_RESET';
 export const IMPORT_PRIVATE_KEY = 'IMPORT_PRIVATE_KEY';
 export const IMPORT_MNEMONIC = 'IMPORT_MNEMONIC';
 export const IMPORT_KEYSTORE = 'IMPORT_KEYSTORE';
+
+export const RELOAD_ACCOUNT = 'RELOAD_ACCOUNT';
 
 export const showImportPrivateKey = () => ({
   type: SHOW_IMPORT_PRIVATE_KEY,
@@ -159,6 +162,14 @@ export const hideWalletReset = () => ({
   type: SHOW_WALLET_RESET,
   payload: {
     walletResetOpen: false,
+  },
+});
+
+export const reloadAccount = showReloadAccountSnackbar => ({
+  type: RELOAD_ACCOUNT,
+  payload: {
+    reloadAccountNonce: uuid(),
+    showReloadAccountSnackbar: showReloadAccountSnackbar,
   },
 });
 

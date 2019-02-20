@@ -14,6 +14,7 @@ import Transition from './Transition';
 import { hideNetwork } from '../actions/appBar';
 import { setNetwork } from '../actions/app';
 import { localStorage } from '../utils/localStorage';
+import { reloadAccount } from '../actions/wallet';
 
 class ChangeNetwork extends Component {
   constructor(props) {
@@ -33,12 +34,13 @@ class ChangeNetwork extends Component {
   };
 
   changeNetwork = () => {
-    const { hideNetwork, network, setNetwork } = this.props;
+    const { hideNetwork, network, setNetwork, reloadAccount } = this.props;
     hideNetwork();
 
     if (network !== this.state.networkInSelection) {
       setNetwork(this.state.networkInSelection);
       localStorage.setNetwork(this.state.networkInSelection);
+      reloadAccount(true);
     }
   };
 
@@ -101,6 +103,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   hideNetwork,
   setNetwork,
+  reloadAccount,
 };
 
 export default connect(

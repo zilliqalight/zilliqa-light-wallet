@@ -34,13 +34,14 @@ class Dashboard extends React.Component {
     this.loadActiveAccountDetails(true);
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    // When close send token popup
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
     if (
-      !this.props.sendTokenOpen &&
-      prevProps.sendTokenOpen !== this.props.sendTokenOpen
+      this.props.activeAccount !== prevProps.activeAccount ||
+      this.props.reloadAccountNonce !== prevProps.reloadAccountNonce
     ) {
-      this.loadActiveAccountDetails(false);
+
+      this.loadActiveAccountDetails(this.props.showReloadAccountSnackbar);
     }
   }
 
@@ -167,6 +168,8 @@ const mapStateToProps = state => ({
   network: state.app.network,
   sendTokenOpen: state.wallet.sendTokenOpen,
   accountsOpen: state.dashboard.accountsOpen,
+  reloadAccountNonce: state.wallet.reloadAccountNonce,
+  showReloadAccountSnackbar: state.wallet.showReloadAccountSnackbar,
 });
 
 const mapDispatchToProps = {

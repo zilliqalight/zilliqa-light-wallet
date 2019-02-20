@@ -10,6 +10,7 @@ import {
   SHOW_WALLET_BACKUP,
   SHOW_WALLET_RESET,
   SHOW_IMPORT_KEYSTORE,
+  RELOAD_ACCOUNT,
 } from '../actions/wallet';
 
 const initialState = {
@@ -35,7 +36,8 @@ export function walletReducer(state = initialState, action) {
     case SHOW_BACKUP_KEYSTORE:
     case SHOW_WALLET_BACKUP:
     case SHOW_WALLET_RESET:
-    case IMPORT_PRIVATE_KEY: {
+    case IMPORT_PRIVATE_KEY:
+    case RELOAD_ACCOUNT: {
       return {
         ...state,
         ...action.payload,

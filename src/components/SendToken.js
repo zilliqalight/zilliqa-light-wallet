@@ -21,7 +21,7 @@ import { createZilliqa, getZilliqaVersion } from '../utils/networks';
 
 import Transition from './Transition';
 
-import { hideSendToken } from '../actions/wallet';
+import { hideSendToken, reloadAccount } from '../actions/wallet';
 import { showSnackbar } from '../actions/snackbar';
 
 class SendToken extends React.Component {
@@ -81,7 +81,13 @@ class SendToken extends React.Component {
     const { sendTo, sendAmount, sendGasPrice, sendGasLimit } = this.state;
     this.setState({ isLoading: true });
 
-    const { network, showSnackbar, hideSendToken, activeAccount } = this.props;
+    const {
+      network,
+      showSnackbar,
+      hideSendToken,
+      activeAccount,
+      reloadAccount,
+    } = this.props;
 
     const zilliqa = createZilliqa(network);
     const { encryptedPrivateKey } = activeAccount;
@@ -110,6 +116,7 @@ class SendToken extends React.Component {
       } else {
         console.log('tx:', tx);
         this.setState({ isLoading: false, sendTo: '', sendAmount: 0 });
+        reloadAccount(false);
         showSnackbar('Sent successfully!', true);
         hideSendToken();
       }
@@ -240,6 +247,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   hideSendToken,
   showSnackbar,
+  reloadAccount,
 };
 
 export default connect(
