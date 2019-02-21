@@ -55,8 +55,10 @@ class Transactions extends React.Component {
 
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
-    if (this.props.activeAccount !== prevProps.activeAccount ||
-      this.props.reloadAccountNonce !== prevProps.reloadAccountNonce) {
+    if (
+      this.props.activeAccount !== prevProps.activeAccount ||
+      this.props.reloadAccountNonce !== prevProps.reloadAccountNonce
+    ) {
       this.loadTransactions(this.props.activeAccount.address);
     }
   }
@@ -122,7 +124,9 @@ class Transactions extends React.Component {
           <TableBody>
             {transactions.map(transaction => {
               const amountInZil = Number(
-                Number(units.fromQa(new BN(transaction.value), units.Units.Zil)).toFixed(6)
+                Number(
+                  units.fromQa(new BN(transaction.value), units.Units.Zil)
+                ).toFixed(6)
               ).toString();
 
               const txURL = getViewBlockTXHashExplorerURL(

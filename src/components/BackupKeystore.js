@@ -41,8 +41,10 @@ class BackupKeystore extends React.Component {
 
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
-    if (this.props.activeAccount !== prevProps.activeAccount ||
-      this.props.reloadAccountNonce !== prevProps.reloadAccountNonce) {
+    if (
+      this.props.activeAccount !== prevProps.activeAccount ||
+      this.props.reloadAccountNonce !== prevProps.reloadAccountNonce
+    ) {
       this.setState({ activeAccount: this.props.activeAccount });
     }
   }

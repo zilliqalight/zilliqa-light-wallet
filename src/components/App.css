@@ -254,3 +254,13 @@
   font-size: 18px;
   margin-left: 8px;
 }
+
+#disclaimer-button {
+  margin: 20px;
+}
+
+.disclaimer {
+  padding: 0 20px 20px;
+  text-align: start;
+  color: #5e5e5e;
+}
