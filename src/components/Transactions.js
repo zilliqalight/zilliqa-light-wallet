@@ -74,7 +74,7 @@ class Transactions extends React.Component {
 
   renderAvatarColor(from, to) {
     const { activeAccount } = this.props;
-    if (activeAccount.address === to.toUpperCase()) {
+    if (activeAccount.address.toUpperCase() === to.toUpperCase()) {
       return styles.greenAvatar;
     }
     return styles.orangeAvatar;
@@ -82,7 +82,7 @@ class Transactions extends React.Component {
 
   renderAvatar(from, to) {
     const { activeAccount } = this.props;
-    if (activeAccount.address === to.toUpperCase()) {
+    if (activeAccount.address.toUpperCase() === to.toUpperCase()) {
       return 'IN';
     }
     return 'OUT';
@@ -90,7 +90,7 @@ class Transactions extends React.Component {
 
   renderFromOrTo(from, to) {
     const { activeAccount } = this.props;
-    if (activeAccount.address === to.toUpperCase()) {
+    if (activeAccount.address.toUpperCase() === to.toUpperCase()) {
       return `From: ${getAddressAbbreviation(from)}`;
     }
     return `To: ${getAddressAbbreviation(to)}`;

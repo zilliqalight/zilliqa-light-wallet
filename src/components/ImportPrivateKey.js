@@ -59,7 +59,7 @@ class ImportPrivateKey extends Component {
       return;
     }
 
-    const address = getAddressFromPrivateKey(privateKey).toUpperCase();
+    const address = getAddressFromPrivateKey(privateKey);
     const passwordHashInBackground = await backgroundPage.getPasswordHash();
     const accounts = await localStorage.getAccounts();
     const encryptedPrivateKey = AES.encrypt(

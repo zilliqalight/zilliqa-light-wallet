@@ -37,7 +37,7 @@ class SendToken extends React.Component {
   }
 
   handleAddressChange = event => {
-    this.setState({ [event.target.name]: event.target.value.toUpperCase() });
+    this.setState({ [event.target.name]: event.target.value });
   };
 
   handleAmountChange = event => {

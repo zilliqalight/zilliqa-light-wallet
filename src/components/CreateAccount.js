@@ -45,14 +45,14 @@ class CreateAccount extends Component {
     } = this.props;
 
     const mnemonic = bip39.generateMnemonic();
-    const privateKey = mnemonicToPrivateKey(mnemonic).toUpperCase();
+    const privateKey = mnemonicToPrivateKey(mnemonic);
 
     if (!verifyPrivateKey(privateKey)) {
       showSnackbar('Invalid private key! Please try again.');
       return;
     }
 
-    const address = getAddressFromPrivateKey(privateKey).toUpperCase();
+    const address = getAddressFromPrivateKey(privateKey);
     const passwordHashInBackground = await backgroundPage.getPasswordHash();
     const accounts = await localStorage.getAccounts();
     const encryptedPrivateKey = AES.encrypt(
