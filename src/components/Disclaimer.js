@@ -49,7 +49,7 @@ export default class Disclaimer extends Component {
               risk.
             </p>
             <p>MIT License</p>
-            <p>Copyright (c) YEAR Zilliqa Light Wallet</p>
+            <p>Copyright (c) 2019 Zilliqa Light Wallet</p>
             <p>
               Permission is hereby granted, free of charge, to any person
               obtaining a copy of this software and associated documentation
