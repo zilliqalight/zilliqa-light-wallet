@@ -1,5 +1,6 @@
 import { Zilliqa } from '@zilliqa-js/zilliqa';
 import { bytes } from '@zilliqa-js/util';
+import Namicorn from 'namicorn';
 
 const MAINNET = 'MAINNET';
 const TESTNET = 'TESTNET';
@@ -31,6 +32,21 @@ const getNodeUrl = network => {
 
 const createZilliqa = network => {
   return new Zilliqa(getNodeUrl(network));
+};
+
+const createNamicorn = network => {
+  if(isTestnet(network)) {
+    const namicorn = Namicorn.create({
+      debug: false,
+      disableMatcher: true,
+    });
+    namicorn.use(
+      namicorn.middleware.zns({ url: getNodeUrl(network) }),
+    );
+    return namicorn;
+  } else {
+    return null;
+  }
 };
 
 const getZilliqaVersion = async network => {
@@ -82,6 +98,7 @@ export {
   createZilliqa,
   getZilliqaVersion,
   getNetworkName,
+  createNamicorn,
   getViewBlockAddressHistoryAPIURL,
   getViewBlockAddressExplorerURL,
   getViewBlockTXHashExplorerURL,

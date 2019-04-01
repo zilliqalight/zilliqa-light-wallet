@@ -17,7 +17,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { Long, units } from '@zilliqa-js/util';
 
 import { getActivePrivateKey, isAddress } from '../utils/crypto';
-import { createZilliqa, getZilliqaVersion } from '../utils/networks';
+import { createZilliqa, getZilliqaVersion, createNamicorn } from '../utils/networks';
 
 import Transition from './Transition';
 
@@ -37,7 +37,22 @@ class SendToken extends React.Component {
   }
 
   handleAddressChange = event => {
+    const { network, showSnackbar } = this.props;
     this.setState({ [event.target.name]: event.target.value });
+    if(event.target.value.match(/\.zil$/)) {
+      const namicorn = createNamicorn(network);
+      if(namicorn) {
+        const targetName = event.target.name;
+        namicorn.resolve(event.target.value).then(data => {
+          if(data)
+            this.setState({ [targetName]: data.addr.substring(2) });
+          else
+            showSnackbar('ZNS domain not found.');
+        }).catch(err => console.log("Error ", err));
+      } else {
+        console.log('ZNS is not supported on', network);
+      }
+    }
   };
 
   handleAmountChange = event => {
