@@ -53,6 +53,7 @@ Currently it supports [Zilliqa Testnet v3.0](https://explorer.zilliqa.com/). We 
 | Send fund | done      |
 | Receive fund address/QRcode | done      |
 | Recent transactions history | done      |
+| ZNS support | done      |
 
 Mainnet support will be available once it is released.
 
